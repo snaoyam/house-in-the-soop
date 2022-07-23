@@ -8,15 +8,15 @@ import { useDragConstraint } from '../utils/drag'
 
 
 function TBox(props) {
-  const [ref] = useBox(() => ({ mass: 1, ...props}))
+  const [ref, api] = useBox(() => ({ mass: 1, ...props}))
   // const [boxPosition, setBoxPosition] = useState(props.position)
   // const { size, viewport } = useThree();
   // const aspect = size.width / viewport.width;
-  const bind = useDragConstraint(ref)
   // const bind = useDrag(({ offset: [x, y] }) => {
   //   const [ , ,z] = boxPosition
   //   setBoxPosition([x / aspect, -y / aspect, z]);
   // }, { pointerEvents: true })
+  const bind = useDragConstraint(ref)
   return (
     <mesh 
       ref={ref} {...bind}
