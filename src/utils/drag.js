@@ -23,12 +23,12 @@ function useDragConstraint(child) {
 
 function Cursor() {
   const [cursorRef, api] = useSphere(() => ({ collisionFilterMask: 0, type: 'Kinematic', mass: 0, args: [0.5] }), cursor)
-  const scaleFactor = 0.4
+  const scaleFactor = 0.5
   useFrame((state) => {
     console.log(state.mouse)
-    const x = state.mouse.x * state.viewport.width
-    const y = (state.mouse.y * state.viewport.height) / 1.9 + -x / 3.5
-    api.position.set(x / 1.4, y, 0)
+    const x = state.mouse.x * state.viewport.width * scaleFactor
+    const y = state.mouse.y * state.viewport.height * scaleFactor
+    api.position.set(x, y, 0)
   })
   return (
     <mesh ref={cursorRef}>
