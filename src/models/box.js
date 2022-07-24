@@ -4,18 +4,11 @@ import { useLoader, useFrame, useThree } from '@react-three/fiber'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
 import { usePlane, useBox } from '@react-three/cannon'
 // import { useDrag } from "@use-gesture/react"
-import { useDragConstraint } from '../utils/drag'
+import { useDragConstraint } from '../utils/cursor'
 
 
 function TBox(props) {
   const [ref, api] = useBox(() => ({ mass: 1, ...props}))
-  // const [boxPosition, setBoxPosition] = useState(props.position)
-  // const { size, viewport } = useThree();
-  // const aspect = size.width / viewport.width;
-  // const bind = useDrag(({ offset: [x, y] }) => {
-  //   const [ , ,z] = boxPosition
-  //   setBoxPosition([x / aspect, -y / aspect, z]);
-  // }, { pointerEvents: true })
   const bind = useDragConstraint(ref)
   return (
     <mesh 
@@ -23,9 +16,17 @@ function TBox(props) {
       position={props.position} 
       rotation={props.rotation} 
       scale={1}
-      // onClick={e => console.log('click')}
-      // onPointerOver={e => console.log('hover')}
-      // onPointerOut={e => console.log('unhover')}
+      // onClick={(e) => console.log('click')}
+      // onContextMenu={(e) => console.log('context menu')}
+      // onDoubleClick={(e) => console.log('double click')}
+      // onWheel={(e) => console.log('wheel spins')}
+      // onPointerUp={(e) => console.log('up')}
+      // onPointerDown={(e) => console.log('down')}
+      // onPointerOver={(e) => console.log('over')}
+      // onPointerOut={(e) => console.log('out')}
+      // onPointerEnter={(e) => console.log('enter')} // see note 1
+      // onPointerLeave={(e) => console.log('leave')} // see note 1
+      // onPointerMove={console.log}
       >
       <boxGeometry args={props.scale} attach="geometry"/>
       <meshLambertMaterial color={props.color} attach="material" side={DoubleSide} />
