@@ -25,11 +25,11 @@ function useDragConstraint(child) {
 }
 
 function Cursor({cameraPosition, pointerPosition}) {
-  const [cursorRef, api] = useSphere(() => ({ collisionFilterMask: 0, type: 'Kinematic', mass: 0, args: [0.5] }), cursor)
-  const scaleFactor = 0.44
-  if(pointerPosition) {
-    api.position.set(pointerPosition.x, pointerPosition.y, pointerPosition.z)
-  }
+  // const [cursorRef, api] = useSphere(() => ({ collisionFilterMask: 0, type: 'Kinematic', mass: 0, args: [0.5] }), cursor)
+  // const scaleFactor = 0.44
+  // if(pointerPosition) {
+  //   api.position.set(pointerPosition.x, pointerPosition.y, pointerPosition.z)
+  // }
   // useFrame((state) => {
   //   const x = state.mouse.x * state.viewport.width * scaleFactor
   //   const y = state.mouse.y * state.viewport.height * scaleFactor
@@ -42,7 +42,7 @@ function Cursor({cameraPosition, pointerPosition}) {
   //   api.position.set(b-min, c-min, a-min)
   // })
   return (
-    <mesh ref={cursorRef}>
+    <mesh /*ref={cursorRef}*/ position={pointerPosition}>
       <sphereBufferGeometry args={[0.7, 30, 30]} attach="geometry"/>
       <meshLambertMaterial color={'white'} attach="material" />
     </mesh>
