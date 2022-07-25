@@ -1,6 +1,7 @@
-import { createRef, useCallback, useEffect } from 'react'
+import { createRef, useCallback, useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { usePointToPointConstraint, useSphere } from '@react-three/cannon'
+import { CubeCamera, PerspectiveCamera } from "@react-three/drei"
 import * as THREE from 'three'
 
 const cursor = createRef()
@@ -24,7 +25,7 @@ function useDragConstraint(child) {
   return { onPointerUp, onPointerDown }
 }
 
-function Cursor({cameraPosition, pointerPosition}) {
+function Cursor({pointerPosition}) {
   // const [cursorRef, api] = useSphere(() => ({ collisionFilterMask: 0, type: 'Kinematic', mass: 0, args: [0.5] }), cursor)
   // const scaleFactor = 0.44
   // if(pointerPosition) {
@@ -37,15 +38,20 @@ function Cursor({cameraPosition, pointerPosition}) {
   //   const b = 30 + x/Math.sqrt(2) - y/Math.sqrt(6)
   //   const c = 30 + 2*y/Math.sqrt(6)
   //   const min = Math.min(Math.abs(a),Math.abs(b),Math.abs(c)) - 1
-    
-
+  //\THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, -1, 0 ), 0, 10 );
+  const Raycaster = new THREE.Raycaster(new THREE.Vector3(0, 0, 0), new THREE.Vector3(-1, 0, 0), 0, 100)
+  const ref = useRef()
   //   api.position.set(b-min, c-min, a-min)
-  // })
+  // })intersection.clone().add(normalVector)
   return (
-    <mesh /*ref={cursorRef}*/ position={pointerPosition}>
-      <sphereBufferGeometry args={[0.7, 30, 30]} attach="geometry"/>
-      <meshLambertMaterial color={'white'} attach="material" />
-    </mesh>
+    <group>
+      {/* <PerspectiveCamera onUpdate={(e) => {console.log(e)}} position={pointerPosition.point ? pointerPosition.point.clone().add(pointerPosition.normal) : null}> */}
+        <mesh /*ref={cursorRef}*/ position={pointerPosition.point ? pointerPosition.point.clone().add(pointerPosition.normal) : null}>
+          <sphereBufferGeometry args={[0.7, 30, 30]} attach="geometry" />
+          <meshLambertMaterial color={'white'} attach="material" transparent={true} opacity={0.1} />
+        </mesh>
+      {/* </PerspectiveCamera> */}
+    </group>
   )
 }
 

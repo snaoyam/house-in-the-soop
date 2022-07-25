@@ -15,16 +15,22 @@ function TBox(props) {
     <mesh 
       /*ref={ref} {...bind}*/
       onPointerDown={(e) => {
-        setPosition(v => { return {...v, grab: true, startCursorPosition: props.pointerPosition } })
+        e.stopPropagation()
+        setPosition(v => { return {...v, grab: true, startCursorPosition: props.pointerPosition.point } })
       }}
-      onPointerUp={() => {
-        setPosition(v => {
-          return {position: v.position.clone().add(props.pointerPosition.clone().sub(position.startCursorPosition)), grab: false, positionDiff: null}
-        })
+      onPointerUp={(e) => {
+        if(position.grab) {
+          const radius = Array.from(e.eventObject.scale)[props.pointerPosition.normal] / 2
+          // const Array.from(e.eventObject.position)[props.pointerPosition.normal] - Array.from(props.pointerPosition.position)[props.pointerPosition.normal]
+          const radiusVector = (new THREE.Vector3(props.pointerPosition.normal == 0 ? 1 : 0, props.pointerPosition.normal == 1 ? 1 : 0, props.pointerPosition.normal == 2 ? 1 : 0)).multiplyScalar(radius)
+          setPosition(() => {
+            return { position: radiusVector.add(props.pointerPosition.point), grab: false, positionDiff: null }
+          })
+        }
       }}
-      position={position.grab ? ( position.position.clone().add(props.pointerPosition.clone().sub(position.startCursorPosition)) ) : position.position} 
+      position={position.grab ? ( position.position.clone().add(props.pointerPosition.point.clone().sub(position.startCursorPosition)) ) : position.position} 
       rotation={props.rotation} 
-      scale={1}
+      scale={props.scale}
       // onClick={(e) => console.log('click')}
       // onContextMenu={(e) => console.log('context menu')}
       // onDoubleClick={(e) => console.log('double click')}
@@ -37,8 +43,8 @@ function TBox(props) {
       // onPointerLeave={(e) => console.log('leave')} // see note 1
       // onPointerMove={console.log}
       >
-      <boxGeometry args={props.scale} attach="geometry"/>
-      <meshLambertMaterial color={props.color} attach="material" side={THREE.DoubleSide} />
+      <boxGeometry attach="geometry"/>
+      <meshLambertMaterial color={props.color} attach="material" side={THREE.DoubleSide} transparent={true} opacity={position.grab ? 0.4 : 1}  />
     </mesh>
   )
 }

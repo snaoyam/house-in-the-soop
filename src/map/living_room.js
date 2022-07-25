@@ -1,7 +1,7 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Box } from '@mui/material'
 import { useGesture } from "@use-gesture/react"
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei"
+import { OrbitControls, PerspectiveCamera, OrthographicCamera } from "@react-three/drei"
 import * as THREE from 'three'
 import Room from '../models/room'
 import { Physics, useBox } from '@react-three/cannon'
@@ -13,8 +13,7 @@ import {Cursor} from '../utils/cursor'
 
 const LivingRoom = () => {
   const cameraPosition = [30, 20, 30]
-  const [pointerPosition, setPointerPosition] = React.useState()
-  const helper = useRef();
+  const [pointerPosition, setPointerPosition] = React.useState({point: null, normal: null})
   
   return (
     <Box sx={{
@@ -22,25 +21,31 @@ const LivingRoom = () => {
       height: '100vh',
     }}>
       <Canvas style={{ height: "100vh", width: "100vw" }} 
-        camera={{ position: cameraPosition, fov: 25, near: 1, far: 100 }} 
+        orthographic camera={{ zoom: 50, position: cameraPosition }} 
         >
-        <Cursor pointerPosition={pointerPosition}/>
-        <group material="shader"
-          onPointerMove={(e) => {
-            e.stopPropagation()
-            const intersection = e.intersections.at(0).point
-            // const normalMatrix = new THREE.Matrix3().getNormalMatrix( e.object.matrixWorld )
-            // const normalVector = e.intersections.at(0).face.normal.clone().applyMatrix3( normalMatrix ).normalize()
-            // const cursorPosition = intersection.clone().add(normalVector)
-            setPointerPosition(intersection)
-          }}>
-          <Room position={[0, 0, 0]} />
-        </group>
-        <TBox position={[8, 0.5, 8]} pointerPosition={pointerPosition} color="blue"/>
-        <ambientLight />
+        {/* <Physics gravity={[0, 0, 0]}> */}
+          <Cursor pointerPosition={pointerPosition}/>
+          <group material="shader"
+            onPointerMove={(e) => {
+              e.stopPropagation()
+              const intersection = e.intersections.at(0).point
+              const normalMatrix = new THREE.Matrix3().getNormalMatrix( e.object.matrixWorld )
+              const normalVector = e.intersections.at(0).face.normal.clone().applyMatrix3( normalMatrix ).normalize()
+              // const cursorPosition = intersection.clone().add(normalVector)
+              const newNormalVector = ((a, b, c) => (a && !c ? 0 : (b && !a ? 1 : 2)))(normalVector.x > normalVector.y, normalVector.y > normalVector.z, normalVector.z > normalVector.x)
+              setPointerPosition({ point: intersection, normal: newNormalVector })
+            }}
+            >
+            <Room position={[0, 0, 0]} />
+            <TBox position={[1, 1, 8]} scale={[2, 2, 4]} pointerPosition={pointerPosition} color="brown" />
+          </group>
+        <TBox position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} pointerPosition={pointerPosition} color="blue"/>
+        {/* </Physics> */}
+        <ambientLight /> 
+        {/* directionalLight */}
         <pointLight position={[10, 10, 10]} />
-        {/* <PerspectiveCamera position={[20, 20, 20]} makeDefault />
-        <OrbitControls /> */}
+        {/* <OrthographicCamera makeDefault zoom={40} position={[30, 20, 30]} rotation={[-0.5880026035475675, 0.693980594900994, 0.40305707446611316]} /> */}
+        {/* <OrbitControls /> */}
       </Canvas>
     </Box>
   )
