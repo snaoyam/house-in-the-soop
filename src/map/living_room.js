@@ -4,14 +4,13 @@ import * as THREE from 'three'
 import Room from '../models/room'
 import React, { useRef, useState } from "react"
 import TBox from '../models/box'
-import {Cursor} from '../utils/cursor'
+import { Cursor } from '../utils/cursor'
 import { OrbitControls, PerspectiveCamera, OrthographicCamera } from "@react-three/drei"
 //import { useGesture } from "@use-gesture/react"
 //import { Physics, useBox } from '@react-three/cannon'
 //import { useDrag } from "@use-gesture/react"
 import Draggable from '../utils/draggable.js'
-import MovingBox from '../models/movingBox'
-import Dummy from '../models/dummy'
+import { MovingBox, Objects } from '../models/movingBox'
 import { TextureLoader } from 'three'
 import PostFX from '../utils/PostFX'
 import Couch from '../models/couch'
@@ -24,63 +23,18 @@ function Effect() {
   }, 1)
 }
 
-var inBox = [1, 1, 1]; // 총 3개의 objects 가 있음. 0: 박스에 없음, 1: 박스에 있음
-var index = 0;
-var objects = [
-  <TBox position={[0, 8, 0]} color="red" />,
-  <TBox position={[0, 8, 0]} color="white" />,
-  <TBox position={[0, 8, 0]} color="black" />
-];
+const boxPos = [8, 1, 4]
+const objectsPos = [8, 1.7, 4]
 
-function f() {
-  // console.log('asdf');
-  switch (index) {
-    case 0:
-      console.log('index 0');
-      console.log(index);
-      inBox[index] = 0;
-      index++;
-      break;
-    case 1:
-      console.log('index 1');
-      console.log(index);
-      index++;
-    case 2:
-      console.log('index 2');
-      console.log(index);
-      break;
-  }
-}
-
-// function Objects() {
-//   useFrame(() => {
-//     for (let i = 0; i < inBox.length; i++) {
-//       if (inBox[index] == 0) {
-
-//       }
-//     }
-//   })
-
-//   return ()
-// }
+const objects = [
+  { key: 0, child: <TBox position={objectsPos} scale={[0.5, 1, 0.3]} color='red' /> },
+  { key: 1, child: <TBox position={objectsPos} scale={[0.5, 1, 0.3]} color='white' /> },
+  { key: 2, child: <TBox position={objectsPos} scale={[0.5, 1, 0.3]} color='black' /> },];
 
 const LivingRoom = () => {
   const cameraPosition = [30, 20, 30]
-  const [pointerPosition, setPointerPosition] = useState({point: null, normal: null})
-  const [grab, setGrab] = useState({object: null, position: null})
-
-  // useFrame((state) => {
-  //   // cam.current.position.z = 5 + Math.sin(state.clock.getElapsedTime() * 1.5) * 2
-  //   state.gl.setRenderTarget(target)
-  //   state.gl.render(scene, cam.current)
-  //   state.gl.setRenderTarget(null)
-  // })
-
-  // useFrame((state) => {
-  //   if (inBox[index] == 0) {
-  //     state.gl.setRenderTarget(objects[index])
-  //   }
-  // })
+  const [pointerPosition, setPointerPosition] = useState({ point: null, normal: null })
+  const [grab, setGrab] = useState({ object: null, position: null })
 
   return (
     <Box sx={{
@@ -90,6 +44,7 @@ const LivingRoom = () => {
       <Canvas style={{ height: "100vh", width: "100vw" }} 
         orthographic camera={{ zoom: 40, position: cameraPosition }} 
         >
+        <Effect />
         {/* <Physics gravity={[0, 0, 0]}> */}
           {/* <Cursor pointerPosition={pointerPosition}/> */}
           <group material="shader"
@@ -125,20 +80,15 @@ const LivingRoom = () => {
           <Draggable position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} pointerPosition={pointerPosition} grab={grab} child={
             <TBox color="blue" />
           } />
-          <MovingBox
-            onClick={(event) => { f() }}
-            position={[10, 4, 6]} scale={[1, 2, 2]} map={useLoader(TextureLoader, 'box.png')} />
-          <Dummy
-            // onClick={(event) => { console.log('ffff') }}
-            position={[10, 4.5, 6]} scale={[1, 2, 2]} color="red" />
           <Draggable position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} pointerPosition={pointerPosition} grab={grab} child={
             <Couch position={[100, 0, 200]} />
           } />
-          
-          
-          </group>
+          <MovingBox
+            positionB={boxPos} positionD={objectsPos} scale={[1, 2, 2]} map={useLoader(TextureLoader, 'box.png')} />
+          {Objects(objects).map(({ key, child }) => <Draggable key={key} pointerPosition={pointerPosition} grab={grab} child={child} />)}
+        </group>
         {/* </Physics> */}
-        <ambientLight /> 
+        <ambientLight />
         {/* directionalLight */}
         <pointLight position={[10, 10, 10]} />
         {/* <OrthographicCamera makeDefault zoom={40} position={[30, 20, 30]} rotation={[-0.5880026035475675, 0.693980594900994, 0.40305707446611316]} /> */}
