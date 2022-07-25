@@ -1,5 +1,26 @@
 import React, { useRef } from 'react'
-import { useFrame, useLoader } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
+
+
+var inBox = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; // 총 n개의 objects 가 있음. 0: 박스에 없음, 1: 박스에 있음
+var renderObjects = [];
+var index = 0;
+var yPos = 1.7;
+
+function f() {
+    inBox[index] = 0;
+}
+
+function Objects(objectsList) {
+    if ((index < objectsList.length) && (inBox[index] == 0)) {
+        renderObjects.push(objectsList[index])
+        index++;
+        if (index == objectsList.length) {
+            yPos = 0
+        } else { yPos -= 0.12 }
+    }
+    return renderObjects
+}
 
 
 var open = false;
@@ -11,11 +32,7 @@ function Box({ map, ...props }) {
     return (
         <mesh
             {...props}
-            ref={ref}
-        // onClick={(event) => { clicked() }}
-        // onPointerOver={(event) => hover(true)}
-        // onPointerOut={(event) => hover(false)}
-        >
+            ref={ref}>
             <boxGeometry args={[1, 1, 0.02]} />
             <meshStandardMaterial map={map} color="#FFFFFF" />
         </mesh>
@@ -28,7 +45,6 @@ function BoxUpR({ map, ...props }) {
     useFrame(() => {
         if ((open) && (constraint >= 0)) {
             ref.current.rotation.z -= 0.04
-            // console.log(constraint);
             constraint -= 0.5;
         }
     })
@@ -40,8 +56,7 @@ function BoxUpR({ map, ...props }) {
             position={[0.5, 0.5, 0]}>
             <mesh
                 {...props}
-                position={[0.25, 0, 0]}
-            >
+                position={[0.25, 0, 0]}>
                 <boxGeometry args={[0.5, 0.02, 1]} />
                 <meshStandardMaterial map={map} color="#FFFFFF" />
             </mesh>
@@ -55,7 +70,6 @@ function BoxUpL({ map, ...props }) {
     useFrame(() => {
         if ((open) && (constraint >= 0)) {
             ref.current.rotation.z += 0.04
-            // console.log(constraint);
             constraint -= 0.5;
         }
     })
@@ -67,8 +81,7 @@ function BoxUpL({ map, ...props }) {
             position={[-0.5, 0.5, 0]}>
             <mesh
                 {...props}
-                position={[-0.25, 0, 0]}
-            >
+                position={[-0.25, 0, 0]}>
                 <boxGeometry args={[0.5, 0.02, 1]} />
                 <meshStandardMaterial map={map} color="#FFFFFF" />
             </mesh>
@@ -76,32 +89,45 @@ function BoxUpL({ map, ...props }) {
     )
 }
 
-const clicked = (props) => {
-    // console.log('dfs')
+const clicked = () => {
     if (!open) { constraint = 100; open = true; }
-    else {
-        props.onClick()
-    }
+    else { f() }
 }
 
 function MovingBox(props) {
+    const dummy = useRef()
+
+    useFrame(() => {
+        dummy.current.position.y = yPos
+    })
+
     return (
-        <group
-            onClick={(event) => {
-                event.stopPropagation()
-                clicked(props)
-            }}
-        // onClick={(event) => { props.onClick() }}
-        >
-            <BoxUpL map={props.map} key={1} />
-            <BoxUpR map={props.map} key={2} />
-            <Box map={props.map} key={3} position={[0.5, 0, 0]} rotation={[0, Math.PI / 2, 0]} />
-            <Box map={props.map} key={4} position={[-0.5, 0, 0]} rotation={[0, Math.PI / 2, 0]} />
-            <Box map={props.map} key={5} position={[0, -0.5, 0]} rotation={[Math.PI / 2, 0, 0]} />
-            <Box map={props.map} key={6} position={[0, 0, 0.5]} rotation={[0, 0, 0]} />
-            <Box map={props.map} key={7} position={[0, 0, -0.5]} rotation={[0, 0, 0]} />
+        <group>
+            <mesh
+                ref={dummy}
+                position={props.positionD}
+                scale={props.scale}
+                rotation={[Math.PI / 2, 0, 0]}>
+                <boxGeometry args={[0.9, 0.9, 0.1]} attach="geometry" />
+                <meshLambertMaterial color={"black"} attach="material" />
+            </mesh>
+            <group
+                position={props.positionB}
+                scale={props.scale}
+                onClick={(event) => {
+                    event.stopPropagation()
+                    clicked()
+                }}>
+                <BoxUpL map={props.map} key={1} />
+                <BoxUpR map={props.map} key={2} />
+                <Box map={props.map} key={3} position={[0.5, 0, 0]} rotation={[0, Math.PI / 2, 0]} />
+                <Box map={props.map} key={4} position={[-0.5, 0, 0]} rotation={[0, Math.PI / 2, 0]} />
+                <Box map={props.map} key={5} position={[0, -0.5, 0]} rotation={[Math.PI / 2, 0, 0]} />
+                <Box map={props.map} key={6} position={[0, 0, 0.5]} rotation={[0, 0, 0]} />
+                <Box map={props.map} key={7} position={[0, 0, -0.5]} rotation={[0, 0, 0]} />
+            </group>
         </group>
     )
 }
 
-export default MovingBox
+export { MovingBox, Objects }
