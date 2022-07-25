@@ -1,4 +1,4 @@
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
 import { Box } from '@mui/material'
 import * as THREE from 'three'
 import Room from '../models/room'
@@ -9,12 +9,78 @@ import { OrbitControls, PerspectiveCamera, OrthographicCamera } from "@react-thr
 //import { useGesture } from "@use-gesture/react"
 //import { Physics, useBox } from '@react-three/cannon'
 //import { useDrag } from "@use-gesture/react"
+import Draggable from '../utils/draggable.js'
+import MovingBox from '../models/movingBox'
+import Dummy from '../models/dummy'
+import { TextureLoader } from 'three'
+import PostFX from '../utils/PostFX'
+
+function Effect() {
+  const { gl, scene, camera, size } = useThree()
+  const renderer = new PostFX(gl)
+  return useFrame((state) => {
+    renderer.render(scene, camera)
+  }, 1)
+}
+
+var inBox = [1, 1, 1]; // 총 3개의 objects 가 있음. 0: 박스에 없음, 1: 박스에 있음
+var index = 0;
+var objects = [
+  <TBox position={[0, 8, 0]} color="red" />,
+  <TBox position={[0, 8, 0]} color="white" />,
+  <TBox position={[0, 8, 0]} color="black" />
+];
+
+function f() {
+  // console.log('asdf');
+  switch (index) {
+    case 0:
+      console.log('index 0');
+      console.log(index);
+      inBox[index] = 0;
+      index++;
+      break;
+    case 1:
+      console.log('index 1');
+      console.log(index);
+      index++;
+    case 2:
+      console.log('index 2');
+      console.log(index);
+      break;
+  }
+}
+
+// function Objects() {
+//   useFrame(() => {
+//     for (let i = 0; i < inBox.length; i++) {
+//       if (inBox[index] == 0) {
+
+//       }
+//     }
+//   })
+
+//   return ()
+// }
 
 const LivingRoom = () => {
   const cameraPosition = [30, 20, 30]
   const [pointerPosition, setPointerPosition] = useState({point: null, normal: null})
   const [grab, setGrab] = useState({object: null, position: null})
-  
+
+  // useFrame((state) => {
+  //   // cam.current.position.z = 5 + Math.sin(state.clock.getElapsedTime() * 1.5) * 2
+  //   state.gl.setRenderTarget(target)
+  //   state.gl.render(scene, cam.current)
+  //   state.gl.setRenderTarget(null)
+  // })
+
+  // useFrame((state) => {
+  //   if (inBox[index] == 0) {
+  //     state.gl.setRenderTarget(objects[index])
+  //   }
+  // })
+
   return (
     <Box sx={{
       width: '100vw',
@@ -52,8 +118,22 @@ const LivingRoom = () => {
             }}
             >
             <Room position={[0, 0, 0]} />
-          <TBox position={[1, 1, 8]} scale={[2, 2, 4]} color="brown" pointerPosition={pointerPosition} grab={grab} />
-          <TBox position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} color="blue" pointerPosition={pointerPosition} grab={grab} />
+          <Draggable pointerPosition={pointerPosition} grab={grab} child={
+            <TBox position={[1, 1, 8]} scale={[2, 2, 4]} color="brown" />
+          } />
+          <Draggable pointerPosition={pointerPosition} grab={grab} child={
+            <TBox position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} color="blue" />
+          } />
+          <Draggable pointerPosition={pointerPosition} grab={grab} child={
+            <MovingBox
+              onClick={(event) => { f() }}
+              position={[10, 4, 6]} scale={[1, 2, 2]} map={useLoader(TextureLoader, 'box.png')} />
+          } />
+          <Draggable pointerPosition={pointerPosition} grab={grab} child={
+            <Dummy
+              // onClick={(event) => { console.log('ffff') }}
+              position={[10, 4.5, 6]} scale={[1, 2, 2]} color="red" />
+          } />
           </group>
         {/* </Physics> */}
         <ambientLight /> 
