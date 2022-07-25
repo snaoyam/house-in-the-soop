@@ -1,34 +1,26 @@
-import { useState } from 'react'
-import { DoubleSide } from "three"
-import { useLoader, useFrame, useThree } from '@react-three/fiber'
-import { TextureLoader } from 'three/src/loaders/TextureLoader'
-import { usePlane, useBox } from '@react-three/cannon'
-// import { useDrag } from "@use-gesture/react"
-import { useDragConstraint } from '../utils/drag'
-
+import { useState, useRef } from 'react'
+import * as THREE from 'three'
 
 function TBox(props) {
-  const [ref] = useBox(() => ({ mass: 1, ...props}))
-  // const [boxPosition, setBoxPosition] = useState(props.position)
-  // const { size, viewport } = useThree();
-  // const aspect = size.width / viewport.width;
-  const bind = useDragConstraint(ref)
-  // const bind = useDrag(({ offset: [x, y] }) => {
-  //   const [ , ,z] = boxPosition
-  //   setBoxPosition([x / aspect, -y / aspect, z]);
-  // }, { pointerEvents: true })
+  const [position, setPosition] = useState(new THREE.Vector3(props.position[0], props.position[1], props.position[2]))
+  const grab = useRef(false)
   return (
     <mesh 
-      ref={ref} {...bind}
-      position={props.position} 
+      onPointerDown={() => {grab.current = true}}
+      onPointerUp={(e) => {
+        if (grab.current) {
+          grab.current = false
+          const radius = Array.from(e.eventObject.scale)[props.pointerPosition.normal] / 2
+          const radiusVector = (new THREE.Vector3(props.pointerPosition.normal == 0 ? 1 : 0, props.pointerPosition.normal == 1 ? 1 : 0, props.pointerPosition.normal == 2 ? 1 : 0)).multiplyScalar(radius)
+          setPosition(radiusVector.add(props.pointerPosition.point))
+        } 
+      }}
+      position={(grab.current && props.grab.object != null) ? position.clone().add(props.pointerPosition.point.clone().sub(props.grab.position)) : position }
       rotation={props.rotation} 
-      scale={1}
-      // onClick={e => console.log('click')}
-      // onPointerOver={e => console.log('hover')}
-      // onPointerOut={e => console.log('unhover')}
+      scale={props.scale}
       >
-      <boxGeometry args={props.scale} attach="geometry"/>
-      <meshLambertMaterial color={props.color} attach="material" side={DoubleSide} />
+      <boxGeometry attach="geometry"/>
+      <meshLambertMaterial color={props.color} attach="material" side={THREE.DoubleSide} transparent={true} opacity={grab.current ? 0.3 : 1}  />
     </mesh>
   )
 }
