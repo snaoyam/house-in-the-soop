@@ -1,8 +1,5 @@
 import { DoubleSide } from "three"
-import { useLoader } from '@react-three/fiber'
-import { TextureLoader } from 'three/src/loaders/TextureLoader'
 import { Edges } from '@react-three/drei'
-import { usePlane, useBox } from '@react-three/cannon'
 
 
 function TWall(props) {
