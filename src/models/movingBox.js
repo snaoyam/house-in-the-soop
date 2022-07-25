@@ -87,6 +87,8 @@ const clicked = (props) => {
 function MovingBox(props) {
     return (
         <group
+            position={props.position}
+            scale={props.scale}
             onClick={(event) => {
                 event.stopPropagation()
                 clicked(props)

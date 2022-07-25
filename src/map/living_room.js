@@ -14,6 +14,7 @@ import MovingBox from '../models/movingBox'
 import Dummy from '../models/dummy'
 import { TextureLoader } from 'three'
 import PostFX from '../utils/PostFX'
+import Couch from '../models/couch'
 
 function Effect() {
   const { gl, scene, camera, size } = useThree()
@@ -87,7 +88,7 @@ const LivingRoom = () => {
       height: '100vh',
     }}>
       <Canvas style={{ height: "100vh", width: "100vw" }} 
-        orthographic camera={{ zoom: 50, position: cameraPosition }} 
+        orthographic camera={{ zoom: 40, position: cameraPosition }} 
         >
         {/* <Physics gravity={[0, 0, 0]}> */}
           {/* <Cursor pointerPosition={pointerPosition}/> */}
@@ -118,22 +119,23 @@ const LivingRoom = () => {
             }}
             >
             <Room position={[0, 0, 0]} />
-          <Draggable pointerPosition={pointerPosition} grab={grab} child={
-            <TBox position={[1, 1, 8]} scale={[2, 2, 4]} color="brown" />
+          <Draggable position={[1, 1, 8]} scale={[2, 2, 4]} pointerPosition={pointerPosition} grab={grab} child={
+            <TBox color="brown" />
           } />
-          <Draggable pointerPosition={pointerPosition} grab={grab} child={
-            <TBox position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} color="blue" />
+          <Draggable position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} pointerPosition={pointerPosition} grab={grab} child={
+            <TBox color="blue" />
           } />
-          <Draggable pointerPosition={pointerPosition} grab={grab} child={
-            <MovingBox
-              onClick={(event) => { f() }}
-              position={[10, 4, 6]} scale={[1, 2, 2]} map={useLoader(TextureLoader, 'box.png')} />
+          <MovingBox
+            onClick={(event) => { f() }}
+            position={[10, 4, 6]} scale={[1, 2, 2]} map={useLoader(TextureLoader, 'box.png')} />
+          <Dummy
+            // onClick={(event) => { console.log('ffff') }}
+            position={[10, 4.5, 6]} scale={[1, 2, 2]} color="red" />
+          <Draggable position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} pointerPosition={pointerPosition} grab={grab} child={
+            <Couch position={[100, 0, 200]} />
           } />
-          <Draggable pointerPosition={pointerPosition} grab={grab} child={
-            <Dummy
-              // onClick={(event) => { console.log('ffff') }}
-              position={[10, 4.5, 6]} scale={[1, 2, 2]} color="red" />
-          } />
+          
+          
           </group>
         {/* </Physics> */}
         <ambientLight /> 
