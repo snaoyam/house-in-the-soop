@@ -13,6 +13,7 @@ import Draggable from '../utils/draggable.js'
 import { MovingBox, Objects } from '../models/movingBox'
 import { TextureLoader } from 'three'
 import PostFX from '../utils/PostFX'
+import Couch from '../models/couch'
 
 function Effect() {
   const { gl, scene, camera, size } = useThree()
@@ -40,49 +41,50 @@ const LivingRoom = () => {
       width: '100vw',
       height: '100vh',
     }}>
-      <Canvas style={{ height: "100vh", width: "100vw" }}
-        orthographic camera={{ zoom: 50, position: cameraPosition }}
-      >
+      <Canvas style={{ height: "100vh", width: "100vw" }} 
+        orthographic camera={{ zoom: 40, position: cameraPosition }} 
+        >
         <Effect />
         {/* <Physics gravity={[0, 0, 0]}> */}
-        {/* <Cursor pointerPosition={pointerPosition}/> */}
-        <group material="shader"
-          onPointerDown={(e) => {
-            e.stopPropagation()
-            document.body.style.cursor = 'grabbing'
-            setGrab({
-              object: e.intersections.at(0).object,
-              position: (e.intersections.filter((v) => (v.object.uuid !== e.intersections.at(0).object.uuid)).at(0) ?? { point: null }).point
-            })
-          }}
-          onPointerMove={(e) => {
-            e.stopPropagation()
-            const intersectObject = grab.object !== null ? e.intersections.filter((v) => (v.object.uuid !== grab.object.uuid)) : e.intersections
-            if (intersectObject.length > 0) {
-              const intersection = intersectObject.at(0).point
-              const normalMatrix = new THREE.Matrix3().getNormalMatrix(intersectObject.at(0).object.matrixWorld)
-              const normalVector = intersectObject.at(0).face.normal.clone().applyMatrix3(normalMatrix).normalize()
-              const newNormalVector = ((a, b, c) => (a && !c ? 0 : (b && !a ? 1 : 2)))(normalVector.x > normalVector.y, normalVector.y > normalVector.z, normalVector.z > normalVector.x)
-              setPointerPosition({ point: intersection, normal: newNormalVector })
-            }
-          }}
-          onPointerUp={(e) => {
-            e.stopPropagation()
-            document.body.style.cursor = 'unset'
-            setGrab({ object: null, position: null })
-          }}
-        >
-          <Room position={[0, 0, 0]} />
-          <Draggable pointerPosition={pointerPosition} grab={grab} child={
-            <TBox position={[1, 1, 8]} scale={[2, 2, 4]} color="brown" />
+          {/* <Cursor pointerPosition={pointerPosition}/> */}
+          <group material="shader"
+            onPointerDown={(e) => {
+              e.stopPropagation()
+              document.body.style.cursor = 'grabbing'
+              setGrab({ 
+                object: e.intersections.at(0).object, 
+                position: (e.intersections.filter((v) => (v.object.uuid !== e.intersections.at(0).object.uuid)).at(0) ?? {point: null}).point
+              })
+            }}
+            onPointerMove={(e) => {
+              e.stopPropagation()
+              const intersectObject = grab.object !== null ? e.intersections.filter((v) => (v.object.uuid !== grab.object.uuid)) : e.intersections
+              if (intersectObject.length > 0) {
+                const intersection = intersectObject.at(0).point
+                const normalMatrix = new THREE.Matrix3().getNormalMatrix(intersectObject.at(0).object.matrixWorld)
+                const normalVector = intersectObject.at(0).face.normal.clone().applyMatrix3(normalMatrix).normalize()
+                const newNormalVector = ((a, b, c) => (a && !c ? 0 : (b && !a ? 1 : 2)))(normalVector.x > normalVector.y, normalVector.y > normalVector.z, normalVector.z > normalVector.x)
+                setPointerPosition({ point: intersection, normal: newNormalVector })
+              }
+            }}
+            onPointerUp={(e) =>{
+              e.stopPropagation()
+              document.body.style.cursor = 'unset'
+              setGrab({ object: null, position: null })
+            }}
+            >
+            <Room position={[0, 0, 0]} />
+          <Draggable position={[1, 1, 8]} scale={[2, 2, 4]} pointerPosition={pointerPosition} grab={grab} child={
+            <TBox color="brown" />
           } />
-          <Draggable pointerPosition={pointerPosition} grab={grab} child={
-            <TBox position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} color="blue" />
+          <Draggable position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} pointerPosition={pointerPosition} grab={grab} child={
+            <TBox color="blue" />
+          } />
+          <Draggable position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} pointerPosition={pointerPosition} grab={grab} child={
+            <Couch position={[100, 0, 200]} />
           } />
           <MovingBox
             positionB={boxPos} positionD={objectsPos} scale={[1, 2, 2]} map={useLoader(TextureLoader, 'box.png')} />
-          {/* <Draggable pointerPosition={pointerPosition} grab={grab} child={ */}
-          {/* } /> */}
           {Objects(objects).map(({ key, child }) => <Draggable key={key} pointerPosition={pointerPosition} grab={grab} child={child} />)}
         </group>
         {/* </Physics> */}
