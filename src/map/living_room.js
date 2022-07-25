@@ -13,7 +13,7 @@ import { OrbitControls, PerspectiveCamera, OrthographicCamera } from "@react-thr
 const LivingRoom = () => {
   const cameraPosition = [30, 20, 30]
   const [pointerPosition, setPointerPosition] = useState({point: null, normal: null})
-  const grabObject = useRef(null)
+  const [grab, setGrab] = useState({object: null, position: null})
   
   return (
     <Box sx={{
@@ -29,17 +29,18 @@ const LivingRoom = () => {
             onPointerDown={(e) => {
               e.stopPropagation()
               document.body.style.cursor = 'grabbing'
-              grabObject.current = e.intersections.at(0).object
+              setGrab({ 
+                object: e.intersections.at(0).object, 
+                position: (e.intersections.filter((v) => (v.object.uuid !== e.intersections.at(0).object.uuid)).at(0) ?? {point: null}).point
+              })
             }}
             onPointerMove={(e) => {
               e.stopPropagation()
-              const intersectObject = grabObject.current !== null ? e.intersections.filter((v) => (v.object.uuid !== grabObject.current.uuid)) : e.intersections
-              console.log(intersectObject)
+              const intersectObject = grab.object !== null ? e.intersections.filter((v) => (v.object.uuid !== grab.object.uuid)) : e.intersections
               if (intersectObject.length > 0) {
                 const intersection = intersectObject.at(0).point
-                const normalMatrix = new THREE.Matrix3().getNormalMatrix(e.object.matrixWorld)
+                const normalMatrix = new THREE.Matrix3().getNormalMatrix(intersectObject.at(0).object.matrixWorld)
                 const normalVector = intersectObject.at(0).face.normal.clone().applyMatrix3(normalMatrix).normalize()
-                // const cursorPosition = intersection.clone().add(normalVector)
                 const newNormalVector = ((a, b, c) => (a && !c ? 0 : (b && !a ? 1 : 2)))(normalVector.x > normalVector.y, normalVector.y > normalVector.z, normalVector.z > normalVector.x)
                 setPointerPosition({ point: intersection, normal: newNormalVector })
               }
@@ -47,12 +48,12 @@ const LivingRoom = () => {
             onPointerUp={(e) =>{
               e.stopPropagation()
               document.body.style.cursor = 'unset'
-              grabObject.current = null
+              setGrab({ object: null, position: null })
             }}
             >
             <Room position={[0, 0, 0]} />
-            <TBox position={[1, 1, 8]} scale={[2, 2, 4]} pointerPosition={pointerPosition} color="brown" />
-            <TBox position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} pointerPosition={pointerPosition} color="blue" />
+          <TBox position={[1, 1, 8]} scale={[2, 2, 4]} color="brown" pointerPosition={pointerPosition} grab={grab} />
+          <TBox position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} color="blue" pointerPosition={pointerPosition} grab={grab} />
           </group>
         {/* </Physics> */}
         <ambientLight /> 
