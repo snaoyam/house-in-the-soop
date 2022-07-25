@@ -24,7 +24,7 @@ const LivingRoom = () => {
         orthographic camera={{ zoom: 50, position: cameraPosition }} 
         >
         {/* <Physics gravity={[0, 0, 0]}> */}
-          <Cursor pointerPosition={pointerPosition}/>
+          {/* <Cursor pointerPosition={pointerPosition}/> */}
           <group material="shader"
             onPointerDown={(e) => {
               e.stopPropagation()

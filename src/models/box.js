@@ -20,7 +20,7 @@ function TBox(props) {
       scale={props.scale}
       >
       <boxGeometry attach="geometry"/>
-      <meshLambertMaterial color={props.color} attach="material" side={THREE.DoubleSide} transparent={true} opacity={position.grab ? 0.4 : 1}  />
+      <meshLambertMaterial color={props.color} attach="material" side={THREE.DoubleSide} transparent={true} opacity={grab.current ? 0.3 : 1}  />
     </mesh>
   )
 }
