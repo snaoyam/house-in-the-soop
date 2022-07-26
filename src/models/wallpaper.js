@@ -10,7 +10,7 @@ function Wallpaper(props) {
             map={props.map}
             scale={1}>
             <boxGeometry args={props.scale} attach="geometry" />
-            <meshBasicMaterial map={props.map} color={props.color} side={DoubleSide} attach="material" />
+            <meshLambertMaterial map={props.map} color={props.color} side={DoubleSide} attach="material" />
             <Edges />
         </mesh>
     )

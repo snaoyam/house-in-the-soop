@@ -63,7 +63,7 @@ export default class PostFX {
         this.renderer.getDrawingBufferSize(this.resolution)
 
         this.target = new WebGLRenderTarget(
-            this.resolution.x / 5, this.resolution.y / 5,
+            this.resolution.x / 3, this.resolution.y / 3,
             {
                 minFilter: LinearFilter,
                 magFilter: NearestFilter,

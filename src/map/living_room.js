@@ -14,8 +14,15 @@ import { MovingBox, Objects } from '../models/movingBox'
 import { TextureLoader } from 'three'
 import PostFX from '../utils/PostFX'
 import Couch from '../models/couch'
+import Couch2 from '../models/couch2'
+import Artframe from '../models/artframe'
+import SofaChair from '../models/sofa_chair'
 import Carpet from '../models/carpet'
 import Clock from '../models/clock'
+import LedTV from '../models/ledtv'
+import TVTable from '../models/tvtable'
+import Plant from '../models/plant'
+import Lamp from '../models/lamp'
 import Background from '../models/background'
 
 function Effect() {
@@ -26,14 +33,13 @@ function Effect() {
   }, 1)
 }
 
-const boxPos = [8, 1, 4]
-const objectsPos = [8, 1.7, 4]
+const boxPos = [9, 1, 8]
+const objectsPos = [9, 1.7, 8]
 
 const objects = [
   { key: 0, position: objectsPos, scale: [0.5, 1, 0.3], child: <TBox color='red' /> },
   { key: 1, position: objectsPos, scale: [0.5, 1, 0.3], child: <TBox color='white' /> },
-  { key: 2, position: objectsPos, scale: [0.5, 1, 0.3], child: <TBox color='black' /> },
-  { key: 3, position: objectsPos, scale: [0.03, 0.03, 0.03], child: <Clock color='white' /> },];
+  { key: 2, position: objectsPos, scale: [0.5, 1, 0.3], child: <TBox color='black' /> },];
 
 const LivingRoom = () => {
   const cameraPosition = [30, 20, 30]
@@ -79,23 +85,52 @@ const LivingRoom = () => {
           <Background color="white"
           // map={useLoader(TextureLoader, '/texture/background1.jpg')}
           />
-          <Room position={[0, 0, 0]} dimension={{ a: 10, b: 12, h: 10 }} wallThickness={0.5} wallpaperThickness={0.2}
-            bottomWPTexture={useLoader(TextureLoader, '/texture/wood.jpg')}
-            sideWPTexture={useLoader(TextureLoader, '/texture/whiteBrick.jpg')} />
-          <Draggable position={[1, 1, 8]} scale={[2, 2, 4]} pointerPosition={pointerPosition} grab={grab} child={
+          <Room position={[0, 0, 0]} dimension={{ a: 12, b: 15, h: 10 }} wallThickness={0.2} wallpaperThickness={0.7}
+            bottomWPTexture={useLoader(TextureLoader, '/texture/floor2.webp')}
+            sideWPTextureL={useLoader(TextureLoader, '/texture/whiteBrick.jpg')}
+            sideWPTextureR={useLoader(TextureLoader, '/texture/wlp2.jpg')}
+            wallColor={{ top: "#947b73", bottom: "#cbab7c", swR: "#FFFFFF" }} />
+          {/* <Draggable position={[1, 1, 8]} scale={[2, 2, 4]} pointerPosition={pointerPosition} grab={grab} child={
             <TBox color="brown" />
           } />
           <Draggable position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} pointerPosition={pointerPosition} grab={grab} child={
             <TBox color="blue" />
-          } />
-          <Draggable position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} pointerPosition={pointerPosition} grab={grab} child={
+          } /> */}
+          {/* <Draggable position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} pointerPosition={pointerPosition} grab={grab} child={
             <Couch position={[100, 0, 200]} />
+          } /> */}
+          {/* <Draggable position={[0, 0, 0]} scale={[3, 3, 3]} pointerPosition={pointerPosition} grab={grab} child={
+            <Sunset position={[0, 0, 0]} />
+          } /> */}
+          {/* <Draggable position={[0, 0, 0]} pointerPosition={pointerPosition} grab={grab} child={
+            <CoffeeTable scale={[3, 3, 3]} position={[10, 10, 10]} />
+          } /> */}
+          {/* <Draggable position={[4, 0, 2]} pointerPosition={pointerPosition} grab={grab} child={
+            <Couch2 />
+          } /> */}
+          <Draggable position={[6, 6, 0.1]} pointerPosition={pointerPosition} grab={grab} child={
+            <Artframe scale={[0.1, 0.1, 0.1]} />
           } />
-          <Draggable position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} pointerPosition={pointerPosition} grab={grab} child={
+          <Draggable position={[0.7, 1.65, 9]} pointerPosition={pointerPosition} grab={grab} child={
+            <LedTV scale={[0.01, 0.01, 0.01]} />
+          } />
+          <Draggable position={[1, 0, 9]} pointerPosition={pointerPosition} grab={grab} child={
+            <TVTable scale={[0.1, 0.1, 0.1]} />
+          } />
+          <Draggable position={[6, 1, 2]} pointerPosition={pointerPosition} grab={grab} child={
+            <SofaChair scale={[0.1, 0.1, 0.1]} />
+          } />
+          <Draggable position={[10, 0, 1]} pointerPosition={pointerPosition} grab={grab} child={
+            <Plant />
+          } />
+          <Draggable position={[1, 2, 1]} pointerPosition={pointerPosition} grab={grab} child={
+            <Lamp />
+          } />
+          {/* <Draggable position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} pointerPosition={pointerPosition} grab={grab} child={
             <Carpet position={[100, 0, 200]} />
-          } />
+          } /> */}
           <MovingBox
-            positionB={boxPos} positionD={objectsPos} scale={[1, 2, 2]}
+            positionB={boxPos} positionD={objectsPos} scale={[2, 2, 2]}
             map={useLoader(TextureLoader, '/texture/box.png')}
             dummyTexture={useLoader(TextureLoader, '/texture/newspaper.jpeg')} />
           {Objects(objects).map(({ key, position, scale, child }) => <Draggable key={key} position={position} scale={scale} pointerPosition={pointerPosition} grab={grab} child={child} />)}
