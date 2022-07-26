@@ -14,6 +14,9 @@ import { MovingBox, Objects } from '../models/movingBox'
 import { TextureLoader } from 'three'
 import PostFX from '../utils/PostFX'
 import Couch from '../models/couch'
+import Carpet from '../models/carpet'
+import Clock from '../models/clock'
+import Background from '../models/background'
 
 function Effect() {
   const { gl, scene, camera, size } = useThree()
@@ -27,9 +30,10 @@ const boxPos = [8, 1, 4]
 const objectsPos = [8, 1.7, 4]
 
 const objects = [
-  { key: 0, child: <TBox position={objectsPos} scale={[0.5, 1, 0.3]} color='red' /> },
-  { key: 1, child: <TBox position={objectsPos} scale={[0.5, 1, 0.3]} color='white' /> },
-  { key: 2, child: <TBox position={objectsPos} scale={[0.5, 1, 0.3]} color='black' /> },];
+  { key: 0, position: objectsPos, scale: [0.5, 1, 0.3], child: <TBox color='red' /> },
+  { key: 1, position: objectsPos, scale: [0.5, 1, 0.3], child: <TBox color='white' /> },
+  { key: 2, position: objectsPos, scale: [0.5, 1, 0.3], child: <TBox color='black' /> },
+  { key: 3, position: objectsPos, scale: [0.03, 0.03, 0.03], child: <Clock color='white' /> },];
 
 const LivingRoom = () => {
   const cameraPosition = [30, 20, 30]
@@ -41,39 +45,43 @@ const LivingRoom = () => {
       width: '100vw',
       height: '100vh',
     }}>
-      <Canvas style={{ height: "100vh", width: "100vw" }} 
-        orthographic camera={{ zoom: 40, position: cameraPosition }} 
-        >
-        <Effect />
+      <Canvas style={{ height: "100vh", width: "100vw" }}
+        orthographic camera={{ zoom: 40, position: cameraPosition }}>
         {/* <Physics gravity={[0, 0, 0]}> */}
-          {/* <Cursor pointerPosition={pointerPosition}/> */}
-          <group material="shader"
-            onPointerDown={(e) => {
-              e.stopPropagation()
-              document.body.style.cursor = 'grabbing'
-              setGrab({ 
-                object: e.intersections.at(0).object, 
-                position: (e.intersections.filter((v) => (v.object.uuid !== e.intersections.at(0).object.uuid)).at(0) ?? {point: null}).point
-              })
-            }}
-            onPointerMove={(e) => {
-              e.stopPropagation()
-              const intersectObject = grab.object !== null ? e.intersections.filter((v) => (v.object.uuid !== grab.object.uuid)) : e.intersections
-              if (intersectObject.length > 0) {
-                const intersection = intersectObject.at(0).point
-                const normalMatrix = new THREE.Matrix3().getNormalMatrix(intersectObject.at(0).object.matrixWorld)
-                const normalVector = intersectObject.at(0).face.normal.clone().applyMatrix3(normalMatrix).normalize()
-                const newNormalVector = ((a, b, c) => (a && !c ? 0 : (b && !a ? 1 : 2)))(normalVector.x > normalVector.y, normalVector.y > normalVector.z, normalVector.z > normalVector.x)
-                setPointerPosition({ point: intersection, normal: newNormalVector })
-              }
-            }}
-            onPointerUp={(e) =>{
-              e.stopPropagation()
-              document.body.style.cursor = 'unset'
-              setGrab({ object: null, position: null })
-            }}
-            >
-            <Room position={[0, 0, 0]} />
+        {/* <Cursor pointerPosition={pointerPosition}/> */}
+        <group material="shader"
+          onPointerDown={(e) => {
+            e.stopPropagation()
+            document.body.style.cursor = 'grabbing'
+            setGrab({
+              object: e.intersections.at(0).object,
+              position: (e.intersections.filter((v) => (v.object.uuid !== e.intersections.at(0).object.uuid)).at(0) ?? { point: null }).point
+            })
+          }}
+          onPointerMove={(e) => {
+            e.stopPropagation()
+            const intersectObject = grab.object !== null ? e.intersections.filter((v) => (v.object.uuid !== grab.object.uuid)) : e.intersections
+            if (intersectObject.length > 0) {
+              const intersection = intersectObject.at(0).point
+              const normalMatrix = new THREE.Matrix3().getNormalMatrix(intersectObject.at(0).object.matrixWorld)
+              const normalVector = intersectObject.at(0).face.normal.clone().applyMatrix3(normalMatrix).normalize()
+              const newNormalVector = ((a, b, c) => (a && !c ? 0 : (b && !a ? 1 : 2)))(normalVector.x > normalVector.y, normalVector.y > normalVector.z, normalVector.z > normalVector.x)
+              setPointerPosition({ point: intersection, normal: newNormalVector })
+            }
+          }}
+          onPointerUp={(e) => {
+            e.stopPropagation()
+            document.body.style.cursor = 'unset'
+            setGrab({ object: null, position: null })
+          }}
+        >
+          <Effect />
+          <Background color="white"
+          // map={useLoader(TextureLoader, '/texture/background1.jpg')}
+          />
+          <Room position={[0, 0, 0]} dimension={{ a: 10, b: 12, h: 10 }} wallThickness={0.5} wallpaperThickness={0.2}
+            bottomWPTexture={useLoader(TextureLoader, '/texture/wood.jpg')}
+            sideWPTexture={useLoader(TextureLoader, '/texture/whiteBrick.jpg')} />
           <Draggable position={[1, 1, 8]} scale={[2, 2, 4]} pointerPosition={pointerPosition} grab={grab} child={
             <TBox color="brown" />
           } />
@@ -83,9 +91,14 @@ const LivingRoom = () => {
           <Draggable position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} pointerPosition={pointerPosition} grab={grab} child={
             <Couch position={[100, 0, 200]} />
           } />
+          <Draggable position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} pointerPosition={pointerPosition} grab={grab} child={
+            <Carpet position={[100, 0, 200]} />
+          } />
           <MovingBox
-            positionB={boxPos} positionD={objectsPos} scale={[1, 2, 2]} map={useLoader(TextureLoader, 'box.png')} />
-          {Objects(objects).map(({ key, child }) => <Draggable key={key} pointerPosition={pointerPosition} grab={grab} child={child} />)}
+            positionB={boxPos} positionD={objectsPos} scale={[1, 2, 2]}
+            map={useLoader(TextureLoader, '/texture/box.png')}
+            dummyTexture={useLoader(TextureLoader, '/texture/newspaper.jpeg')} />
+          {Objects(objects).map(({ key, position, scale, child }) => <Draggable key={key} position={position} scale={scale} pointerPosition={pointerPosition} grab={grab} child={child} />)}
         </group>
         {/* </Physics> */}
         <ambientLight />

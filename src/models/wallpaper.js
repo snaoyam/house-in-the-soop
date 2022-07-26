@@ -1,13 +1,17 @@
+import { DoubleSide } from "three"
+import { Edges } from '@react-three/drei'
+
+
 function Wallpaper(props) {
     return (
         <mesh
             position={props.position}
             rotation={props.rotation}
+            map={props.map}
             scale={1}>
-            <boxGeometry args={props.scale} />
-            <meshLambertMaterial color={props.color} attach="material" side={DoubleSide} />
+            <boxGeometry args={props.scale} attach="geometry" />
+            <meshBasicMaterial map={props.map} color={props.color} side={DoubleSide} attach="material" />
             <Edges />
-
         </mesh>
     )
 }

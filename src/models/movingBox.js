@@ -2,10 +2,11 @@ import React, { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 
 
-var inBox = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; // 총 n개의 objects 가 있음. 0: 박스에 없음, 1: 박스에 있음
+var inBox = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; // 총 n개의 objects 가 있음. 0: 박스에 없음, 1: 박스에 있음
 var renderObjects = [];
 var index = 0;
 var yPos = 1.7;
+var isEmpty = false;
 
 function f() {
     inBox[index] = 0;
@@ -16,7 +17,8 @@ function Objects(objectsList) {
         renderObjects.push(objectsList[index])
         index++;
         if (index == objectsList.length) {
-            yPos = 0
+            yPos = 0;
+            isEmpty = true;
         } else { yPos -= 0.12 }
     }
     return renderObjects
@@ -39,13 +41,13 @@ function Box({ map, ...props }) {
     )
 }
 
-function BoxUpR({ map, ...props }) {
+function BoxUp({ sign, map, ...props }) {
     const ref = useRef()
 
     useFrame(() => {
         if ((open) && (constraint >= 0)) {
-            ref.current.rotation.z -= 0.04
-            constraint -= 0.5;
+            ref.current.rotation.z -= sign * 0.07
+            constraint -= 0.9;
         }
     })
 
@@ -53,35 +55,10 @@ function BoxUpR({ map, ...props }) {
         <group
             ref={ref}
             rotation={[0, 0, Math.PI]}
-            position={[0.5, 0.5, 0]}>
+            position={[sign * 0.5, 0.5, 0]}>
             <mesh
                 {...props}
-                position={[0.25, 0, 0]}>
-                <boxGeometry args={[0.5, 0.02, 1]} />
-                <meshStandardMaterial map={map} color="#FFFFFF" />
-            </mesh>
-        </group>
-    )
-}
-
-function BoxUpL({ map, ...props }) {
-    const ref = useRef()
-
-    useFrame(() => {
-        if ((open) && (constraint >= 0)) {
-            ref.current.rotation.z += 0.04
-            constraint -= 0.5;
-        }
-    })
-
-    return (
-        <group
-            ref={ref}
-            rotation={[0, 0, Math.PI]}
-            position={[-0.5, 0.5, 0]}>
-            <mesh
-                {...props}
-                position={[-0.25, 0, 0]}>
+                position={[sign * 0.25, 0, 0]}>
                 <boxGeometry args={[0.5, 0.02, 1]} />
                 <meshStandardMaterial map={map} color="#FFFFFF" />
             </mesh>
@@ -95,10 +72,20 @@ const clicked = () => {
 }
 
 function MovingBox(props) {
+    const mov = useRef()
     const dummy = useRef()
 
     useFrame(() => {
         dummy.current.position.y = yPos
+        if ((isEmpty) && (mov.current.scale.x >= 0)) {
+            mov.current.scale.x -= 0.1
+            dummy.current.scale.x = 0
+            dummy.current.scale.y = 0
+            if (mov.current.scale.x < 0.2) {
+                mov.current.scale.x = 0
+                mov.current.scale.y = 0
+            }
+        }
     })
 
     return (
@@ -109,17 +96,18 @@ function MovingBox(props) {
                 scale={props.scale}
                 rotation={[Math.PI / 2, 0, 0]}>
                 <boxGeometry args={[0.9, 0.9, 0.1]} attach="geometry" />
-                <meshLambertMaterial color={"black"} attach="material" />
+                <meshBasicMaterial map={props.dummyTexture} attach="material" />
             </mesh>
             <group
+                ref={mov}
                 position={props.positionB}
                 scale={props.scale}
                 onClick={(event) => {
                     event.stopPropagation()
                     clicked()
                 }}>
-                <BoxUpL map={props.map} key={1} />
-                <BoxUpR map={props.map} key={2} />
+                <BoxUp sign={1} map={props.map} key={1} />
+                <BoxUp sign={-1} map={props.map} key={2} />
                 <Box map={props.map} key={3} position={[0.5, 0, 0]} rotation={[0, Math.PI / 2, 0]} />
                 <Box map={props.map} key={4} position={[-0.5, 0, 0]} rotation={[0, Math.PI / 2, 0]} />
                 <Box map={props.map} key={5} position={[0, -0.5, 0]} rotation={[Math.PI / 2, 0, 0]} />
