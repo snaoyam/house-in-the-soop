@@ -2,14 +2,14 @@ import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
 import { Box } from '@mui/material'
 import * as THREE from 'three'
 import Room from '../models/room'
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, Suspense } from "react"
 import TBox from '../models/box'
 import {Cursor} from '../utils/cursor'
 import { OrbitControls, PerspectiveCamera, OrthographicCamera } from "@react-three/drei"
 //import { useGesture } from "@use-gesture/react"
 //import { Physics, useBox } from '@react-three/cannon'
 //import { useDrag } from "@use-gesture/react"
-import Draggable from '../utils/draggable.js'
+import Object from '../utils/object'
 import MovingBox from '../models/movingBox'
 import Dummy from '../models/dummy'
 import { TextureLoader } from 'three'
@@ -68,6 +68,7 @@ const LivingRoom = () => {
   const cameraPosition = [30, 20, 30]
   const [pointerPosition, setPointerPosition] = useState({point: null, normal: null})
   const [grab, setGrab] = useState({object: null, position: null})
+  const objectList = useRef({})
 
   // useFrame((state) => {
   //   // cam.current.position.z = 5 + Math.sin(state.clock.getElapsedTime() * 1.5) * 2
@@ -90,54 +91,57 @@ const LivingRoom = () => {
       <Canvas style={{ height: "100vh", width: "100vw" }} 
         orthographic camera={{ zoom: 40, position: cameraPosition }} 
         >
-        {/* <Physics gravity={[0, 0, 0]}> */}
-          {/* <Cursor pointerPosition={pointerPosition}/> */}
-          <group material="shader"
-            onPointerDown={(e) => {
-              e.stopPropagation()
-              document.body.style.cursor = 'grabbing'
-              setGrab({ 
-                object: e.intersections.at(0).object, 
-                position: (e.intersections.filter((v) => (v.object.uuid !== e.intersections.at(0).object.uuid)).at(0) ?? {point: null}).point
-              })
-            }}
-            onPointerMove={(e) => {
-              e.stopPropagation()
-              const intersectObject = grab.object !== null ? e.intersections.filter((v) => (v.object.uuid !== grab.object.uuid)) : e.intersections
-              if (intersectObject.length > 0) {
-                const intersection = intersectObject.at(0).point
-                const normalMatrix = new THREE.Matrix3().getNormalMatrix(intersectObject.at(0).object.matrixWorld)
-                const normalVector = intersectObject.at(0).face.normal.clone().applyMatrix3(normalMatrix).normalize()
-                const newNormalVector = ((a, b, c) => (a && !c ? 0 : (b && !a ? 1 : 2)))(normalVector.x > normalVector.y, normalVector.y > normalVector.z, normalVector.z > normalVector.x)
-                setPointerPosition({ point: intersection, normal: newNormalVector })
-              }
-            }}
-            onPointerUp={(e) =>{
-              e.stopPropagation()
-              document.body.style.cursor = 'unset'
-              setGrab({ object: null, position: null })
-            }}
-            >
-            <Room position={[0, 0, 0]} />
-          <Draggable position={[1, 1, 8]} scale={[2, 2, 4]} pointerPosition={pointerPosition} grab={grab} child={
+        <group material="shader"
+          onPointerDown={(e) => {
+            e.stopPropagation()
+            document.body.style.cursor = 'grabbing'
+            setGrab({ 
+              object: e.intersections.at(0).object, 
+              position: (e.intersections.filter((v) => (v.object.uuid !== e.intersections.at(0).object.uuid)).at(0) ?? {point: null}).point
+            })
+          }}
+          onPointerMove={(e) => {
+            e.stopPropagation()
+            const intersectObject = grab.object !== null ? e.intersections.filter((v) => (v.object.uuid !== grab.object.uuid)) : e.intersections
+            if (intersectObject.length > 0) {
+              const intersection = intersectObject.at(0).point
+              const normalMatrix = new THREE.Matrix3().getNormalMatrix(intersectObject.at(0).object.matrixWorld)
+              const normalVector = intersectObject.at(0).face.normal.clone().applyMatrix3(normalMatrix).normalize()
+              const newNormalVector = ((a, b, c) => (a && !c ? 0 : (b && !a ? 1 : 2)))(normalVector.x > normalVector.y, normalVector.y > normalVector.z, normalVector.z > normalVector.x)
+              setPointerPosition({ point: intersection, normal: newNormalVector })
+            }
+          }}
+          onPointerUp={(e) =>{
+            e.stopPropagation()
+            document.body.style.cursor = 'unset'
+            setGrab({ object: null, position: null })
+          }}
+          >
+          <Room position={[0, 0, 0]} />
+          <Object draggable={true} position={[1, 1, 8]} scale={[2, 2, 4]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} child={
             <TBox color="brown" />
           } />
-          <Draggable position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} pointerPosition={pointerPosition} grab={grab} child={
+          <Object draggable={true} position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} child={
             <TBox color="blue" />
           } />
-          <MovingBox
-            onClick={(event) => { f() }}
-            position={[10, 4, 6]} scale={[1, 2, 2]} map={useLoader(TextureLoader, 'box.png')} />
-          <Dummy
-            // onClick={(event) => { console.log('ffff') }}
-            position={[10, 4.5, 6]} scale={[1, 2, 2]} color="red" />
-          <Draggable position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} pointerPosition={pointerPosition} grab={grab} child={
-            <Couch position={[100, 0, 200]} />
+          <Object draggable={false} position={[10, 4, 6]} scale={[1, 2, 2]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} child={
+            <MovingBox
+              onClick={(event) => { f() }}
+              map={useLoader(TextureLoader, 'box.png')} />
           } />
-          
-          
-          </group>
-        {/* </Physics> */}
+          <Object draggable={false} position={[10, 4.5, 6]} scale={[1, 2, 2]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} child={
+            <Dummy
+              // onClick={(event) => { console.log('ffff') }}
+            color="red" />
+          } />
+          <Object draggable={true} position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} child={
+            <Suspense>
+              <Couch position={[100, 0, 200]} />
+            </Suspense>
+          } />
+        
+        
+        </group>
         <ambientLight /> 
         {/* directionalLight */}
         <pointLight position={[10, 10, 10]} />
