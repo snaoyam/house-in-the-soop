@@ -13,7 +13,7 @@ export default function MarsPoster(props) {
     const group = useRef()
     const { nodes, materials } = useGLTF('/models/mars_poster/scene.gltf')
     return (
-        <group scale={[0.05, 0.05, 0.05]} ref={group} dispose={null}>
+        <group scale={[0.04, 0.04, 0.04]} ref={group} dispose={null}>
             <group rotation={[-Math.PI / 2, 0, 0]}>
                 <mesh
                     castShadow

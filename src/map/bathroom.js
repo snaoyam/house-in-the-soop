@@ -28,6 +28,8 @@ import Mirror from '../models/mirror'
 import Hamper from '../models/hamper'
 import WindowFrame from '../models/windowframe'
 import Blinds from '../models/blinds'
+import Towel from '../models/towel'
+import TowelBasket from '../models/towelbasket'
 
 function Effect() {
     const { gl, scene, camera, size } = useThree()
@@ -37,8 +39,8 @@ function Effect() {
     }, 1)
 }
 
-const boxPos = [12, 1, 9]
-const objectsPos = [12, 1.7, 9]
+const boxPos = [13, 1, 6]
+const objectsPos = [13, 1.7, 6]
 
 const objects = [
     { key: 0, position: objectsPos, child: <IndoorPlant /> },
@@ -48,6 +50,7 @@ const objects = [
     { key: 4, position: objectsPos, child: <Toothpaste /> },
     { key: 5, position: objectsPos, child: <Shampoo /> },
     { key: 6, position: objectsPos, child: <Shampoo2 /> },
+    { key: 7, position: objectsPos, rotation: [0, Math.PI / 2, 0], child: <Towel /> },
 ];
 
 const Bathroom = () => {
@@ -107,6 +110,9 @@ const Bathroom = () => {
                     <mesh position={[6, 5.5, 0.1]}><Mirror /></mesh>
                     <mesh position={[7, 12, 12]} rotation={[0, Math.PI / 2, 0]}><WindowFrame /></mesh>
                     <mesh position={[7, 11.5, 17.7]} rotation={[0, Math.PI / 2, 0]}><Blinds /></mesh>
+                    <Draggable position={[13, 0, 10]} rotation={[0, Math.PI / 2, 0]} pointerPosition={pointerPosition} grab={grab} child={
+                        <TowelBasket />
+                    } />
                     <MovingBox
                         positionB={boxPos} positionD={objectsPos} scale={[2, 2, 2]}
                         map={useLoader(TextureLoader, '/texture/box.png')}

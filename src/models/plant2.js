@@ -13,7 +13,7 @@ export default function Plant2(props) {
     const group = useRef()
     const { nodes, materials } = useGLTF('/models/pot_plant_-_dracena/scene.gltf')
     return (
-        <group scale={[0.5, 0.5, 0.5]} ref={group} dispose={null}>
+        <group scale={[0.4, 0.4, 0.4]} ref={group} dispose={null}>
             <group rotation={[-Math.PI / 2, 0, 0]}>
                 <mesh
                     castShadow

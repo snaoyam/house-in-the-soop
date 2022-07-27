@@ -27,6 +27,7 @@ import Imac from '../models/imac'
 import Shoes from '../models/shoes'
 import LavaLamp from '../models/lavalamp'
 import Backpack from '../models/backpack'
+import Chair from '../models/chair'
 
 function Effect() {
     const { gl, scene, camera, size } = useThree()
@@ -36,8 +37,8 @@ function Effect() {
     }, 1)
 }
 
-const boxPos = [12, 1, 8]
-const objectsPos = [12, 1.7, 8]
+const boxPos = [12, 1, 6]
+const objectsPos = [12, 1.7, 6]
 
 const objects = [
     { key: 0, position: objectsPos, child: <Clothes2 /> },
@@ -119,6 +120,9 @@ const Bedroom = () => {
                     } />
                     <Draggable position={[11.3, 0, 10.1]} rotation={[0, Math.PI, 0]} pointerPosition={pointerPosition} grab={grab} child={
                         <Tablee />
+                    } />
+                    <Draggable position={[11, 0, 11]} pointerPosition={pointerPosition} grab={grab} child={
+                        <Chair />
                     } />
                     <MovingBox
                         positionB={boxPos} positionD={objectsPos} scale={[2, 2, 2]}

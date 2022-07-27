@@ -20,6 +20,7 @@ import WoodTray from '../models/woodtray'
 import Souce from '../models/souce'
 import Plant2 from '../models/plant2'
 import Dishes from '../models/dishes'
+import Shelves from '../models/shelves'
 
 function Effect() {
     const { gl, scene, camera, size } = useThree()
@@ -33,7 +34,7 @@ const boxPos = [10, 1, 9]
 const objectsPos = [10, 1.7, 9]
 
 const objects = [
-    { key: 0, position: objectsPos, child: <CoffeeMachine /> },
+    { key: 0, position: objectsPos, rotation: [0, Math.PI / 2, 0], child: <CoffeeMachine /> },
     { key: 1, position: objectsPos, child: <FlowerVase1 /> },
     { key: 2, position: objectsPos, child: <FlowerVase2 /> },
     { key: 3, position: objectsPos, child: <Chicken /> },
@@ -94,11 +95,14 @@ const Kitchen = () => {
                     <Draggable position={[8.5, 3.5, 1.5]} rotation={[0, Math.PI / 2, 0]} pointerPosition={pointerPosition} grab={grab} child={
                         <DiningTable />
                     } />
-                    <Draggable position={[8.5, 0, 14]} rotation={[0, Math.PI, 0]} pointerPosition={pointerPosition} grab={grab} child={
+                    <Draggable position={[7.5, 0, 14]} rotation={[0, Math.PI, 0]} pointerPosition={pointerPosition} grab={grab} child={
                         <DiningCabinet />
                     } />
-                    <Draggable position={[1, 0, 14]} pointerPosition={pointerPosition} grab={grab} child={
+                    <Draggable position={[11, 0, 14.5]} pointerPosition={pointerPosition} grab={grab} child={
                         <Plant2 />
+                    } />
+                    <Draggable position={[1.3, 2, 14]} rotation={[0, Math.PI / 2, 0]} pointerPosition={pointerPosition} grab={grab} child={
+                        <Shelves />
                     } />
                     <MovingBox
                         positionB={boxPos} positionD={objectsPos} scale={[2, 2, 2]}
