@@ -3,7 +3,6 @@ import { Box } from '@mui/material'
 import * as THREE from 'three'
 import Room from '../models/room'
 import React, { useRef, useState } from "react"
-import TBox from '../models/box'
 import Draggable from '../utils/draggable.js'
 import { MovingBox, Objects } from '../models/movingBox'
 import { TextureLoader } from 'three'

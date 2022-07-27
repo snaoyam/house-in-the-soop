@@ -4,6 +4,7 @@ import LivingRoom from './map/living_room'
 import Bathroom from './map/bathroom'
 import Kitchen from './map/kitchen'
 import Bedroom from './map/bedroom'
+import Studio from './map/studio'
 import Test from './map/test'
 
 const App = () => {
@@ -14,7 +15,8 @@ const App = () => {
         <Route path="/2" element={<Bathroom />} />
         <Route path="/3" element={<Kitchen />} />
         <Route path="/4" element={<Bedroom />} />
-        <Route path="/5" element={<Test />} />
+        <Route path="/5" element={<Studio />} />
+        <Route path="/6" element={<Test />} />
       </Routes>
     </BrowserRouter>
   )
