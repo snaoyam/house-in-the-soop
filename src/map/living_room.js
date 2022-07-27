@@ -9,7 +9,7 @@ import { OrbitControls, PerspectiveCamera, OrthographicCamera } from "@react-thr
 //import { useGesture } from "@use-gesture/react"
 //import { Physics, useBox } from '@react-three/cannon'
 //import { useDrag } from "@use-gesture/react"
-import Object from '../utils/object'
+import Item from '../utils/item'
 import MovingBox from '../models/movingBox'
 import Dummy from '../models/dummy'
 import { TextureLoader } from 'three'
@@ -120,28 +120,28 @@ const LivingRoom = () => {
           }}
           >
           <Room position={[0, 0, 0]} />
-          <Object draggable={true} position={[1, 1, 8]} scale={[2, 2, 4]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
+          <Item draggable={true} position={[1, 1, 8]} scale={[2, 2, 4]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <TBox color="brown" />
-          </Object>
-          {/* <Object draggable={true} position={[5, 10, 8]} scale={[2, 2, 4]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
+          </Item>
+          <Item draggable={true} position={[3.2, 1, 6]} scale={[2, 2, 4]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <TBox color="brown" />
-          </Object>
-          <Object draggable={true} position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
+          </Item>
+          <Item draggable={true} position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <TBox color="blue" />
-          </Object>
-          <Object draggable={false} position={[10, 4, 6]} scale={[1, 2, 2]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
+          </Item>
+          <Item draggable={false} position={[10, 4, 6]} scale={[1, 2, 2]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <MovingBox
               onClick={(event) => { f() }}
               map={useLoader(TextureLoader, 'box.png')} />
-          </Object>
-          <Object draggable={false} position={[10, 4.5, 6]} scale={[1, 2, 2]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
+          </Item>
+          <Item draggable={false} position={[10, 4.5, 6]} scale={[1, 2, 2]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <Dummy
               // onClick={(event) => { console.log('ffff') }}
               color="red" />
-          </Object>
-          <Object draggable={true} position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
+          </Item>
+          <Item draggable={true} position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <Couch position={[100, 0, 200]} />
-          </Object> */}
+          </Item>
           
         
         
