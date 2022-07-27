@@ -1,11 +1,12 @@
 import React, { useRef } from "react"
 import { useGLTF } from "@react-three/drei"
+import * as THREE from 'three'
 
 export default function Couch({ ...props }) {
   const group = useRef()
   const { nodes, materials } = useGLTF('/models/stylised_double_couch/scene.gltf')
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group

@@ -15,6 +15,7 @@ import Dummy from '../models/dummy'
 import { TextureLoader } from 'three'
 import PostFX from '../utils/PostFX'
 import Couch from '../models/couch'
+import { nanoid } from 'nanoid'
 
 function Effect() {
   const { gl, scene, camera, size } = useThree()
@@ -30,7 +31,7 @@ var objects = [
   <TBox position={[0, 8, 0]} color="red" />,
   <TBox position={[0, 8, 0]} color="white" />,
   <TBox position={[0, 8, 0]} color="black" />
-];
+]
 
 function f() {
   // console.log('asdf');
@@ -69,6 +70,7 @@ const LivingRoom = () => {
   const [pointerPosition, setPointerPosition] = useState({point: null, normal: null})
   const [grab, setGrab] = useState({object: null, position: null})
   const objectList = useRef({})
+  // console.log(objectList)
 
   // useFrame((state) => {
   //   // cam.current.position.z = 5 + Math.sin(state.clock.getElapsedTime() * 1.5) * 2
@@ -118,33 +120,45 @@ const LivingRoom = () => {
           }}
           >
           <Room position={[0, 0, 0]} />
-          <Object draggable={true} position={[1, 1, 8]} scale={[2, 2, 4]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} child={
+          <Object draggable={true} position={[1, 1, 8]} scale={[2, 2, 4]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <TBox color="brown" />
-          } />
-          <Object draggable={true} position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} child={
+          </Object>
+          {/* <Object draggable={true} position={[5, 10, 8]} scale={[2, 2, 4]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
+            <TBox color="brown" />
+          </Object>
+          <Object draggable={true} position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <TBox color="blue" />
-          } />
-          <Object draggable={false} position={[10, 4, 6]} scale={[1, 2, 2]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} child={
+          </Object>
+          <Object draggable={false} position={[10, 4, 6]} scale={[1, 2, 2]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <MovingBox
               onClick={(event) => { f() }}
               map={useLoader(TextureLoader, 'box.png')} />
-          } />
-          <Object draggable={false} position={[10, 4.5, 6]} scale={[1, 2, 2]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} child={
+          </Object>
+          <Object draggable={false} position={[10, 4.5, 6]} scale={[1, 2, 2]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <Dummy
               // onClick={(event) => { console.log('ffff') }}
-            color="red" />
-          } />
-          <Object draggable={true} position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} child={
-            <Suspense>
-              <Couch position={[100, 0, 200]} />
-            </Suspense>
-          } />
+              color="red" />
+          </Object>
+          <Object draggable={true} position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
+            <Couch position={[100, 0, 200]} />
+          </Object> */}
+          
         
         
         </group>
-        <ambientLight /> 
-        {/* directionalLight */}
-        <pointLight position={[10, 10, 10]} />
+        <directionalLight
+          position={[1, 0, 0]}
+          intensity={1.3}
+        /> 
+        <directionalLight
+          position={[0, 1, 0]}
+          intensity={2}
+        /> 
+        <directionalLight
+          position={[0, 0, 1]}
+          intensity={1.5}
+        /> 
+        {/* <ambientLight intensity={2}/> */}
         {/* <OrthographicCamera makeDefault zoom={40} position={[30, 20, 30]} rotation={[-0.5880026035475675, 0.693980594900994, 0.40305707446611316]} /> */}
         {/* <OrbitControls /> */}
       </Canvas>
