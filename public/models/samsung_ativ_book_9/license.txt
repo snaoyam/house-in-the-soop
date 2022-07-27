@@ -1,0 +1,11 @@
+Model Information:
+* title:	Samsung Ativ Book 9
+* source:	https://sketchfab.com/3d-models/samsung-ativ-book-9-5e5725666200416cbf650ddce1f84eb4
+* author:	iSteven (https://sketchfab.com/Steven007)
+
+Model License:
+* license type:	CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions must have the same license.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Samsung Ativ Book 9" (https://sketchfab.com/3d-models/samsung-ativ-book-9-5e5725666200416cbf650ddce1f84eb4) by iSteven (https://sketchfab.com/Steven007) licensed under CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)

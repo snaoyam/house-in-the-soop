@@ -1,0 +1,11 @@
+Model Information:
+* title:	Plant
+* source:	https://sketchfab.com/3d-models/plant-1bb0cf7261174670ad1134093875e1d1
+* author:	whyniero (https://sketchfab.com/whyniero)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Plant" (https://sketchfab.com/3d-models/plant-1bb0cf7261174670ad1134093875e1d1) by whyniero (https://sketchfab.com/whyniero) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
