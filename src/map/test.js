@@ -4,14 +4,13 @@ import * as THREE from 'three'
 import Room from '../models/room'
 import React, { useRef, useState, useEffect, useMemo } from "react"
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader"
-import Draggable from '../utils/draggable.js'
+import Draggable from '../utils/item.js'
 import { MovingBox, Objects } from '../models/movingBox'
 import { TextureLoader } from 'three'
 import PostFX from '../utils/PostFX'
 import Background from '../models/background'
 
 // import { Outline } from 'three/examples/jsm/postprocessing/OutlinePass'
-import { Selection, Select, EffectComposer, Outline, Pixelation } from '@react-three/postprocessing'
 // import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer"
 import { OutlinePass } from "three/examples/jsm/postprocessing/OutlinePass"
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass"
@@ -95,17 +94,6 @@ const objects = [
 //     )
 // }
 
-function TestBox(props) {
-    const ref = useRef()
-    return (
-        <Select enabled={true}>
-            <mesh ref={ref} {...props}>
-                <boxGeometry />
-                <meshStandardMaterial color="orange" />
-            </mesh>
-        </Select>
-    )
-}
 
 const Test = () => {
     const cameraPosition = [30, 20, 30]

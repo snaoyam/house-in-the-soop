@@ -1,0 +1,456 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 110,
+      "max": [
+        0.39396560192108154,
+        0.23438188433647156,
+        0.3236616849899292
+      ],
+      "min": [
+        -0.4181057810783386,
+        -0.19023272395133972,
+        -0.3237674832344055
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 1320,
+      "componentType": 5126,
+      "count": 110,
+      "max": [
+        0.9210591912269592,
+        0.9797618985176086,
+        0.9055129289627075
+      ],
+      "min": [
+        -0.8946900963783264,
+        -0.9904457330703735,
+        -0.9583801031112671
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 110,
+      "max": [
+        0.9672160148620605,
+        0.9998066425323486
+      ],
+      "min": [
+        0.00019326843903400004,
+        0.00019326843903400004
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 384,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 2640,
+      "componentType": 5126,
+      "count": 7077,
+      "max": [
+        0.7692190408706665,
+        0.3763110339641571,
+        0.8158118724822998
+      ],
+      "min": [
+        -0.7648799419403076,
+        -0.4352412521839142,
+        -0.039693400263786316
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 87564,
+      "componentType": 5126,
+      "count": 7077,
+      "max": [
+        1.0,
+        0.9954041838645935,
+        0.9915137887001038
+      ],
+      "min": [
+        -0.9954041838645935,
+        -0.9954042434692383,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 880,
+      "componentType": 5126,
+      "count": 7077,
+      "max": [
+        0.9713935852050781,
+        0.9351536631584167
+      ],
+      "min": [
+        0.028600750491023064,
+        0.03701663762331009
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 1536,
+      "componentType": 5125,
+      "count": 15834,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 172488,
+      "componentType": 5126,
+      "count": 110,
+      "max": [
+        0.41286882758140564,
+        0.1672760546207428,
+        0.3236616849899292
+      ],
+      "min": [
+        -0.4006609320640564,
+        -0.15634238719940186,
+        -0.3237674832344055
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 173808,
+      "componentType": 5126,
+      "count": 110,
+      "max": [
+        0.9997749328613281,
+        0.990672767162323,
+        0.8964595794677734
+      ],
+      "min": [
+        -0.9978896379470825,
+        -0.9995505809783936,
+        -0.9582239389419556
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 57496,
+      "componentType": 5126,
+      "count": 110,
+      "max": [
+        0.9672160148620605,
+        0.9998066425323486
+      ],
+      "min": [
+        0.00019326843903400004,
+        0.00019326843903400004
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 64872,
+      "componentType": 5125,
+      "count": 384,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "Benji Labs (https://sketchfab.com/benjilabs)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/stylised-double-couch-9029ff0808a8409cb5dea590a96864e8",
+      "title": "Stylised Double Couch"
+    },
+    "generator": "Sketchfab-12.82.3",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 66408,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 58376,
+      "byteOffset": 66408,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 175128,
+      "byteOffset": 124784,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 299912,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/Pillow_Shader_baseColor.png"
+    },
+    {
+      "uri": "textures/Couch_Shader_baseColor.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "Pillow_Shader",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0.0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Couch_Shader",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.9434314575050762
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Basic Pillow.009_Pillow Shader_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Double Couch_Couch Shader_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 5,
+            "POSITION": 4,
+            "TEXCOORD_0": 6
+          },
+          "indices": 7,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Pillow_Pillow Shader_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 9,
+            "POSITION": 8,
+            "TEXCOORD_0": 10
+          },
+          "indices": 11,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        0.009999999776482582,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.009999999776482582,
+        0.0,
+        0.0,
+        -0.009999999776482582,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "bf4ca9a5c3824099bd3250769301f0a3.fbx"
+    },
+    {
+      "children": [
+        3,
+        5,
+        7
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "matrix": [
+        28.97868216551202,
+        -3.4488358484516925e-06,
+        34.63495712027639,
+        0.0,
+        45.40942131414973,
+        -7.992346411112973e-06,
+        -37.993556135001754,
+        0.0,
+        6.888455132331925e-06,
+        45.159095764159616,
+        -1.266698371823949e-06,
+        0.0,
+        29.936859130859375,
+        55.879425048828125,
+        -135.47265625,
+        1.0
+      ],
+      "name": "Basic Pillow.009"
+    },
+    {
+      "mesh": 0,
+      "name": "Basic Pillow.009_Pillow Shader_0"
+    },
+    {
+      "children": [
+        6
+      ],
+      "matrix": [
+        100.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        -1.629206793918314e-05,
+        -99.99999999999868,
+        0.0,
+        0.0,
+        99.99999999999868,
+        -1.629206793918314e-05,
+        0.0,
+        -13.117654800415039,
+        3.938549757003784,
+        -139.9417266845703,
+        1.0
+      ],
+      "name": "Double Couch"
+    },
+    {
+      "mesh": 1,
+      "name": "Double Couch_Couch Shader_0"
+    },
+    {
+      "children": [
+        8
+      ],
+      "matrix": [
+        41.01537304947483,
+        8.153574911058066e-07,
+        -18.896642660774443,
+        0.0,
+        -24.775133328756365,
+        3.9775278299772885e-06,
+        -53.77470242048651,
+        0.0,
+        5.289249777430613e-07,
+        45.15909576416005,
+        3.096574523841286e-06,
+        0.0,
+        -56.970672607421875,
+        55.51585006713867,
+        -136.93499755859375,
+        1.0
+      ],
+      "name": "Pillow"
+    },
+    {
+      "mesh": 2,
+      "name": "Pillow_Pillow Shader_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    }
+  ]
+}

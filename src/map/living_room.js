@@ -2,14 +2,15 @@ import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
 import { Box } from '@mui/material'
 import * as THREE from 'three'
 import Room from '../models/room'
-import React, { useRef, useState } from "react"
+import TWallBack from '../models/wall_back'
+import React, { useRef, useState, Suspense } from "react"
 import TBox from '../models/box'
-import { Cursor } from '../utils/cursor'
 import { OrbitControls, PerspectiveCamera, OrthographicCamera } from "@react-three/drei"
 //import { useGesture } from "@use-gesture/react"
 //import { Physics, useBox } from '@react-three/cannon'
 //import { useDrag } from "@use-gesture/react"
-import Draggable from '../utils/draggable.js'
+import Item from '../utils/item'
+import { nanoid } from 'nanoid'
 import { MovingBox, Objects } from '../models/movingBox'
 import { TextureLoader } from 'three'
 import PostFX from '../utils/PostFX'
@@ -48,28 +49,30 @@ const objects = [
   { key: 4, position: objectsPos, rotation: [0, Math.PI / 2, 0], child: <Photoframe2 /> },
   { key: 5, position: objectsPos, child: <CoffeeTable /> },
 ];
+const wallThickness = 0.5
+const dimension = { a: 50, b: 50, h: 50 } //a: left, b: right, h: height
 
 const LivingRoom = () => {
   const cameraPosition = [30, 20, 30]
-  const [pointerPosition, setPointerPosition] = useState({ point: null, normal: null })
-  const [grab, setGrab] = useState({ object: null, position: null })
+  const [pointerPosition, setPointerPosition] = useState({point: null, normal: null})
+  const [grab, setGrab] = useState({object: null, position: null})
+  const objectList = useRef({})
 
   return (
     <Box sx={{
       width: '100vw',
       height: '100vh',
     }}>
-      <Canvas style={{ height: "100vh", width: "100vw" }}
-        orthographic camera={{ zoom: 40, position: cameraPosition }}>
-        {/* <Physics gravity={[0, 0, 0]}> */}
-        {/* <Cursor pointerPosition={pointerPosition}/> */}
+      <Canvas style={{ height: "100vh", width: "100vw" }} 
+        orthographic camera={{ zoom: 40, position: cameraPosition }} 
+        >
         <group material="shader"
           onPointerDown={(e) => {
             e.stopPropagation()
             document.body.style.cursor = 'grabbing'
-            setGrab({
-              object: e.intersections.at(0).object,
-              position: (e.intersections.filter((v) => (v.object.uuid !== e.intersections.at(0).object.uuid)).at(0) ?? { point: null }).point
+            setGrab({ 
+              object: e.intersections.at(0).object, 
+              position: (e.intersections.filter((v) => (v.object.uuid !== e.intersections.at(0).object.uuid)).at(0) ?? {point: null}).point
             })
           }}
           onPointerMove={(e) => {
@@ -89,49 +92,51 @@ const LivingRoom = () => {
             setGrab({ object: null, position: null })
           }}
         >
-          <Effect />
+          {/* <Effect /> */}
           <Background color="#027333"
           // map={useLoader(TextureLoader, '/texture/background1.jpg')}
           />
-          <Room position={[0, 0, 0]} dimension={{ a: 12, b: 15, h: 10 }} wallThickness={0.2} wallpaperThickness={0.7}
+          <TWallBack position={[-(wallThickness / 2), dimension.h / 2 - wallThickness / 2, dimension.b / 2]} rotation={[0, 0, 0]} scale={[wallThickness, dimension.h + wallThickness, dimension.b]} />
+          <TWallBack position={[dimension.a / 2 - wallThickness / 2, dimension.h / 2 - wallThickness / 2, -wallThickness / 2]} rotation={[0, Math.PI / 2, 0]} scale={[wallThickness, dimension.h + wallThickness, dimension.a + wallThickness]} />
+          <TWallBack position={[dimension.a / 2, -wallThickness / 2, dimension.b / 2]} rotation={[Math.PI / 2, Math.PI / 2, 0]} scale={[wallThickness, dimension.b, dimension.a]} />
+          <Room objectList={objectList} pointerPosition={pointerPosition} grab={grab} position={[0, 0, 0]} dimension={{ a: 12, b: 15, h: 10 }} wallThickness={0.2} wallpaperThickness={0.7}
             bottomWPTexture={useLoader(TextureLoader, '/texture/floor2.webp')}
             sideWPTextureL={useLoader(TextureLoader, '/texture/whiteBrick.jpg')}
             sideWPTextureR={useLoader(TextureLoader, '/texture/wlp2.jpg')}
             wallColor={{ top: "#947b73", bottom: "#cbab7c", swR: "#FFFFFF" }} />
-          <Draggable position={[1, 0, 12.5]} pointerPosition={pointerPosition} grab={grab} child={
+          <Item draggable={true} position={[1, 0, 12.5]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current}>
             <Bookshelf />
-          } />
-          <Draggable position={[1, 0, 6]} pointerPosition={pointerPosition} grab={grab} child={
+          </Item>
+          <Item draggable={true} position={[1, 0, 6]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current}>
             <TVTable scale={[0.1, 0.1, 0.1]} />
-          } />
-          <Draggable position={[6, 1, 2]} pointerPosition={pointerPosition} grab={grab} child={
+          </Item>
+          <Item draggable={true} position={[6, 1, 2]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current}>
             <SofaChair scale={[0.1, 0.1, 0.1]} />
-          } />
-          <Draggable position={[1, 2, 1]} pointerPosition={pointerPosition} grab={grab} child={
+          </Item>
+          <Item draggable={true} position={[1, 2, 1]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current}>
             <Lamp />
-          } />
-          <Draggable position={[8, 0, 12]} pointerPosition={pointerPosition} grab={grab} child={
+          </Item>
+          <Item draggable={true} position={[8, 0, 12]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current}>
             <FoyerTable />
-          } />
-          {/* <Draggable position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} pointerPosition={pointerPosition} grab={grab} child={
-            <Carpet position={[100, 0, 200]} />
-          } /> */}
-          {/* <Draggable position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} pointerPosition={pointerPosition} grab={grab} child={
-            <Couch position={[100, 0, 200]} />
-          } /> */}
-          {/* <Draggable position={[4, 0, 2]} pointerPosition={pointerPosition} grab={grab} child={
-            <Couch2 />
-          } /> */}
+          </Item>
           <MovingBox
             positionB={boxPos} positionD={objectsPos} scale={[2, 2, 2]}
             map={useLoader(TextureLoader, '/texture/box.png')}
             dummyTexture={useLoader(TextureLoader, '/texture/newspaper.jpeg')} />
-          {Objects(objects).map(({ key, position, rotation, scale, child }) => <Draggable key={key} position={position} rotation={rotation} scale={scale} pointerPosition={pointerPosition} grab={grab} child={child} />)}
+          {Objects(objects).map(({ key, position, rotation, scale, child }) => <Item draggable={true} key={key} position={position} rotation={rotation} scale={scale} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={key}>{child}</Item>)}
         </group>
-        {/* </Physics> */}
-        <ambientLight />
-        {/* directionalLight */}
-        <pointLight position={[10, 10, 10]} />
+        <directionalLight
+          position={[1, 0, 0]}
+          intensity={1.3}
+        />
+        <directionalLight
+          position={[0, 1, 0]}
+          intensity={2}
+        />
+        <directionalLight
+          position={[0, 0, 1]}
+          intensity={1.5}
+        /> 
         {/* <OrthographicCamera makeDefault zoom={40} position={[30, 20, 30]} rotation={[-0.5880026035475675, 0.693980594900994, 0.40305707446611316]} /> */}
         {/* <OrbitControls /> */}
       </Canvas>

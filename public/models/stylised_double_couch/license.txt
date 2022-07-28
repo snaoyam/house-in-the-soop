@@ -1,0 +1,11 @@
+Model Information:
+* title:	Stylised Double Couch
+* source:	https://sketchfab.com/3d-models/stylised-double-couch-9029ff0808a8409cb5dea590a96864e8
+* author:	Benji Labs (https://sketchfab.com/benjilabs)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Stylised Double Couch" (https://sketchfab.com/3d-models/stylised-double-couch-9029ff0808a8409cb5dea590a96864e8) by Benji Labs (https://sketchfab.com/benjilabs) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
