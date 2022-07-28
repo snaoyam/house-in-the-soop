@@ -10,12 +10,12 @@ import { OrbitControls, PerspectiveCamera, OrthographicCamera } from "@react-thr
 //import { Physics, useBox } from '@react-three/cannon'
 //import { useDrag } from "@use-gesture/react"
 import Item from '../utils/item'
+import { nanoid } from 'nanoid'
 import MovingBox from '../models/movingBox'
 import Dummy from '../models/dummy'
 import { TextureLoader } from 'three'
 import PostFX from '../utils/PostFX'
 import Couch from '../models/couch'
-import { nanoid } from 'nanoid'
 
 function Effect() {
   const { gl, scene, camera, size } = useThree()
@@ -119,7 +119,7 @@ const LivingRoom = () => {
             setGrab({ object: null, position: null })
           }}
           >
-          <Room position={[0, 0, 0]} />
+          <Room position={[0, 0, 0]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} />
           <Item draggable={true} position={[1, 1, 8]} scale={[2, 2, 4]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <TBox color="brown" />
           </Item>
