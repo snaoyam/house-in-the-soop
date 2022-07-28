@@ -154,6 +154,40 @@ const Bathroom = () => {
                 <pointLight position={[10, 10, 10]} />
                 {/* <OrbitControls /> */}
             </Canvas>
+            <Box sx={{
+                position: 'absolute',
+                bottom: 0,
+                width: 'calc(100% - 100px)',
+                height: '100px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '0 50px',
+            }}>
+                <Box
+                    component="img"
+                    sx={{
+                        height: '100%',
+                        transform: 'scaleX(-1)',
+                        cursor: 'pointer',
+                    }}
+                    onClick={() => {
+                        window.location.href = `/${0}`
+                    }}
+                    src="/arrow.png"
+                />
+                <Box
+                    component="img"
+                    sx={{
+                        height: '100%',
+                        cursor: 'pointer',
+                    }}
+                    onClick={() => {
+                        window.location.href = `/${2}`
+                    }}
+                    src="/arrow.png"
+                />
+            </Box>
         </Box>
     )
 }
