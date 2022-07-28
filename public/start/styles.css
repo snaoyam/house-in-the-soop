@@ -1,0 +1,264 @@
+@import url(//fonts.googleapis.com/css?family=Amatic+SC);
+/* @import url("https://fonts.googleapis.com/css?family=Lato:300,400,700,900"); */
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+@import url(https://fonts.googleapis.com/css?family=Averia+Sans+Libre);
+
+
+
+body {
+	background: #70a5da;
+	font-size:60px;
+	font-family:"Averia Sans Libre";
+	margin: 1em;
+}
+
+.container {
+	/* margin: 3em auto; */
+ 	display: inline-block;
+	position: relative;
+	width: 100%;
+	align-content: center;}
+
+.container svg {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+.container2 {position:relative;width:fit-content;margin:0px auto 0;text-align:center;}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+a:before {
+  content: "";
+  background: #f8ffc5;
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  bottom: 0;
+  left: 0;
+  border-radius: 2px;
+  transform: scaleX(0);
+  -webkit-transform: scale(0);
+  animation: 2s forwards no-hover-v linear;
+  -webkit-animation: 1s forwards no-hover-v linear;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  z-index: -1;
+}
+
+a:hover:before,
+a:focus:before {
+  animation: .5s forwards hover-v linear;
+  -webkit-animation: .5s forwards hover-v linear;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes hover-v {
+  0% {
+      transform: scaleX(0);
+      -webkit-transform: scale(0);
+      height: 5px;
+     }
+  45% {   
+      transform: scaleX(1);
+      -webkit-transform: scale(1);
+      height: 5px;
+     }
+  55% {height: 5px;}
+  100% {
+      transform: scaleX(1);
+      -webkit-transform: scale(1);
+      height: 55px;
+     }
+}
+@-webkit-keyframes hover-v {
+  0% {
+      transform: scaleX(0);
+      -webkit-transform: scale(0);
+      height: 5px;
+     }
+  45% {   
+      transform: scaleX(1);
+      -webkit-transform: scale(1);
+      height: 5px;
+     }
+  55% {height: 5px;}
+  100% {
+      transform: scaleX(1);
+      -webkit-transform: scale(1);
+      height: 55px;
+     }
+}
+
+@keyframes no-hover-v {
+  0% {
+      transform: scaleX(1);
+      -webkit-transform: scale(1);
+      height: 55px;
+     }
+  45% {height: 5px;}
+  55% {   
+      transform: scaleX(1);
+      -webkit-transform: scale(1);
+      height: 5px;
+      opacity: 1;
+     }
+  
+  100% {
+      transform: scaleX(0);
+      height: 5px;
+      opacity: .02;
+     }
+}
+@-webkit-keyframes no-hover-v {
+  0% {
+      transform: scaleX(1);
+      -webkit-transform: scale(1);
+      height: 55px;
+     }
+  45% {height: 5px;}
+  55% {   
+      transform: scaleX(1);
+      -webkit-transform: scale(1);
+      height: 5px;
+      opacity: 1;
+     }
+  
+  100% {
+      transform: scaleX(0);
+      height: 5px;
+      opacity: .02;
+     }
+}
+
+/*
+webkit for chrome/safari
+add -moz, -o, -ms for more browser support
+*/
+
+.btn_play {
+    position: relative;
+    top: 50px;
+    width: 100%;
+}
+.btn{
+	color: #fff;
+	text-decoration: none;
+	border: 3px solid #fff;
+	border-radius: 18px;
+	font-family: Helvetica;
+	font-weight: 600;
+	font-size:20px;
+	line-height: 10px;
+	letter-spacing: 2px;
+
+	padding: 25px 60px;
+	position: absolute;
+	top: 50%;
+    right: 0px;
+	/* transform: translate(-50%,-50%); */
+    height: fit-content;
+	overflow: hidden;
+	transition: all 0.3s;
+
+}
+.btn > span {
+    z-index: 10;
+    position: relative;
+}
+
+
+.btn:before{
+	content: "";
+	position: absolute;
+	width: 320px;
+	height: 320px;
+	border-radius: 140px;
+	background-color: #0a7627;
+
+	top: 70px;
+	left: 50%;
+	/*transform: translateX(-50%);*/
+
+	animation: wave 5s infinite linear;
+	transition: all 1s;
+}
+@keyframes wave{
+	0%{transform: translateX(-50%) rotate(0deg);
+
+	} 
+	100%{transform: translateX(-50%) rotate(360deg);
+
+	}
+}
+.btn:hover{
+	color: #fff;
+	/*transition: all 0.3s;*/
+}
+.btn:hover:before{
+	top: 25px;
+	/*transition: all 1s;*/
+}
+
+
+html {
+    /* padding: 5.5em; */
+    text-align: center;
+    /* background: #f1f1f1 url(//64.207.147.63/patterns/debut_light.png); */
+    color: black;
+    width: 100%; 
+    height: 100%;
+}
+
+/* Loader */
+.loader {
+    display: inline-block;
+    font: 2em "Amatic SC";
+    text-transform: uppercase;
+}
+
+
+/* Letters */
+.letter {
+    display: inline-block;
+    animation: infinite breathe 4s;
+    transform: translateZ(0);
+}
+.letter:nth-of-type(1),
+.letter:nth-of-type(10) {
+    animation-delay: 0.3s;
+}
+.letter:nth-of-type(2),
+.letter:nth-of-type(9) {
+    animation-delay: 0.225s;
+}
+.letter:nth-of-type(3),
+.letter:nth-of-type(8) {
+    animation-delay: 0.15s;
+}
+.letter:nth-of-type(4),
+.letter:nth-of-type(7) {
+    animation-delay: 0.075s;
+}
+
+/* loader */
+
+.loader-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background-color: #70a5da;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+

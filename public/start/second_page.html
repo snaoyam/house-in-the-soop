@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Waiting+for+the+Sunrise" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="car_styles.css">
+</head>
+
+<body>
+
+    <div class="wraper">
+        <div class='scene'>
+            <div class="content">
+                <div class="right-col">
+                    <img src="/start/assets/pause.png" id="icon">
+                </div>
+
+            </div>
+            <div class='sun'></div>
+            <div class='mountain one'></div>
+            <div class='mountain two'></div>
+            <div class='car'>
+                <div class='headlight'></div>
+                <div class='handle left'></div>
+                <div class='handle right'></div>
+                <div class='taillight'></div>
+            </div>
+            <div class='windows'>
+                <div class='pane'></div>
+                <div class='pane'></div>
+                <div class='pane'></div>
+            </div>
+            <div class='bumper left'></div>
+            <div class='bumper right'></div>
+            <div class='wheel left'>
+                <div class='rim'></div>
+            </div>
+            <div class='wheel right'>
+                <div class='rim'></div>
+            </div>
+            <div class='rim left'></div>
+            <div class='rim right'></div>
+            <div class='trees'>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+            </div>
+            <div class='trees2'>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+                <div class='tree'>
+                    <div class='trunk'></div>
+                    <div class='top'></div>
+                </div>
+            </div>
+        </div class=letter2>
+        <div class="right">
+            <div id="typedtext"></div>
+            <div class="btn_play">
+                <a class="btn" href="#"><span>PLAY</span></a>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+    </div>
+
+    </div>
+
+    </div>
+
+    <audio id="mySong">
+        <source src="/start/assets/joakim_karud_road_trip.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        var mySong = document.getElementById("mySong");
+        var icon = document.getElementById("icon");
+
+        mySong.play();
+
+        icon.onclick = function () {
+            if (mySong.paused) {
+                mySong.play();
+                icon.src = "/start/assets/pause.png";
+            } else {
+                mySong.pause();
+                icon.src = "/start/assets/play.png";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+<script src="/start/second_page.js"></script>
