@@ -1,0 +1,11 @@
+Model Information:
+* title:	Venus Poster
+* source:	https://sketchfab.com/3d-models/venus-poster-37b43d63676047e08416a0b4942219df
+* author:	Whystler (https://sketchfab.com/Whystler)
+
+Model License:
+* license type:	CC-BY-NC-ND-4.0 (http://creativecommons.org/licenses/by-nc-nd/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions can not be distributed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Venus Poster" (https://sketchfab.com/3d-models/venus-poster-37b43d63676047e08416a0b4942219df) by Whystler (https://sketchfab.com/Whystler) licensed under CC-BY-NC-ND-4.0 (http://creativecommons.org/licenses/by-nc-nd/4.0/)

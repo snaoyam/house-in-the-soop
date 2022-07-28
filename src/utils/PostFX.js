@@ -10,7 +10,7 @@
 import {
     WebGLRenderTarget,
     OrthographicCamera,
-    RGBFormat,
+    RGBAFormat,
     BufferGeometry,
     BufferAttribute,
     Mesh,
@@ -38,12 +38,13 @@ const fragmentShader = `precision highp float;
       color = texture2D(uScene, uv).rgb;
       // Do your cool postprocessing here
     //   color.r += sin(uv.x * 50.0);
-      gl_FragColor = vec4(color, 1.0);
+    //   if (color == vec3(0.0, 0.0, 0.0)) gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+      gl_FragColor = min(vec4(color + vec3(0.1, 0.1, 0.1), 1.0), vec4(1.0, 1.0, 1.0, 1.0));
     }`
 
 export default class PostFX {
     constructor(renderer) {
-        console.log(renderer)
+        // console.log(renderer)
         this.renderer = renderer
         this.scene = new Scene()
         // three.js for .render() wants a camera, even if we're not using it :(
@@ -53,7 +54,7 @@ export default class PostFX {
         // Triangle expressed in clip space coordinates
         const vertices = new Float32Array(
             [-1.0, -1.0, 3.0, -1.0, -1.0, 3.0]
-            // [0, 0, 3.0, -1.0, -1.0, 3.0]
+            // [-0.5, 0, 3.0, -1.0, -1.0, 3.0]
         )
 
         this.geometry.setAttribute('position', new BufferAttribute(vertices, 2))
@@ -62,11 +63,11 @@ export default class PostFX {
         this.renderer.getDrawingBufferSize(this.resolution)
 
         this.target = new WebGLRenderTarget(
-            this.resolution.x / 4, this.resolution.y / 4,
+            this.resolution.x / 3, this.resolution.y / 3,
             {
                 minFilter: LinearFilter,
                 magFilter: NearestFilter,
-                format: RGBFormat,
+                format: RGBAFormat,
                 stencilBuffer: false,
                 depthBuffer: true
             })

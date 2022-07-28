@@ -1,0 +1,11 @@
+Model Information:
+* title:	Stylised Large House Plant
+* source:	https://sketchfab.com/3d-models/stylised-large-house-plant-73068e8f47c049ea953c1aea9b317a02
+* author:	Benji Labs (https://sketchfab.com/benjilabs)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Stylised Large House Plant" (https://sketchfab.com/3d-models/stylised-large-house-plant-73068e8f47c049ea953c1aea9b317a02) by Benji Labs (https://sketchfab.com/benjilabs) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

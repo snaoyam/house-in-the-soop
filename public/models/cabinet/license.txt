@@ -1,0 +1,11 @@
+Model Information:
+* title:	Cabinet
+* source:	https://sketchfab.com/3d-models/cabinet-a8ca7d4dae9d495f8b6b98ee2321c004
+* author:	Camay (https://sketchfab.com/Camay)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Cabinet" (https://sketchfab.com/3d-models/cabinet-a8ca7d4dae9d495f8b6b98ee2321c004) by Camay (https://sketchfab.com/Camay) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

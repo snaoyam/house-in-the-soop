@@ -1,0 +1,11 @@
+Model Information:
+* title:	Backpack low-poly
+* source:	https://sketchfab.com/3d-models/backpack-low-poly-d7225bdd1d6c42d992485d72438cab28
+* author:	dimaponomar2019 (https://sketchfab.com/dimaponomar2019)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Backpack low-poly" (https://sketchfab.com/3d-models/backpack-low-poly-d7225bdd1d6c42d992485d72438cab28) by dimaponomar2019 (https://sketchfab.com/dimaponomar2019) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

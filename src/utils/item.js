@@ -32,7 +32,6 @@ class Item extends React.Component {
     if(this.props.pointerPosition != nextProps.pointerPosition) {
       this.moveItemPosition()
     }
-    
     return (
       this.state !== nextState || this.grabbing || this.initial.draggable !== nextProps.draggable
     )
@@ -48,7 +47,8 @@ class Item extends React.Component {
   moveItemPosition() {
     const pixel = 64
     if (this.grabbing && this.props.grab.object != null) {
-      if (this.props.grab.object.parent.uuid == this.uuid) {
+      // console.log(this.props.grab.object, this.uuid)
+      // if (this.props.grab.object.parent.uuid == this.uuid) {
         const objectMoveDelta = this.props.pointerPosition.point.clone().sub(this.props.grab.position ?? (new THREE.Vector3(0, 0, 0)))
         const objectPosition = this.grabPosition.clone().add(objectMoveDelta)
         const objectBoundingBox = { min: this.grabBoundingBox.min.clone().add(objectMoveDelta), max: this.grabBoundingBox.max.clone().add(objectMoveDelta) }
@@ -140,10 +140,10 @@ class Item extends React.Component {
         this.setState((state) => {
           return { ...state, position: objectPosition }
         })
-      }
-      else {
-        this.grabbing = false
-      }
+      // }
+      // else {
+      //   this.grabbing = false
+      // }
     }
   }
 

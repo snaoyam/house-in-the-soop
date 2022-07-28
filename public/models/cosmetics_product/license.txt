@@ -1,0 +1,11 @@
+Model Information:
+* title:	Cosmetics Product
+* source:	https://sketchfab.com/3d-models/cosmetics-product-b309b65973e64997be6cc267eea3b519
+* author:	The Motion Tree (https://sketchfab.com/themotiontree)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Cosmetics Product" (https://sketchfab.com/3d-models/cosmetics-product-b309b65973e64997be6cc267eea3b519) by The Motion Tree (https://sketchfab.com/themotiontree) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

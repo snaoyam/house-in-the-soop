@@ -1,0 +1,11 @@
+Model Information:
+* title:	Apple iMac M1 (Silver)
+* source:	https://sketchfab.com/3d-models/apple-imac-m1-silver-7c60798464fd47698689038f5587aafa
+* author:	Benji Labs (https://sketchfab.com/benjilabs)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Apple iMac M1 (Silver)" (https://sketchfab.com/3d-models/apple-imac-m1-silver-7c60798464fd47698689038f5587aafa) by Benji Labs (https://sketchfab.com/benjilabs) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

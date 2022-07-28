@@ -1,0 +1,11 @@
+Model Information:
+* title:	Foyer Table
+* source:	https://sketchfab.com/3d-models/foyer-table-96a59672857c498da5c7ca82c793a6e5
+* author:	HippoStance (https://sketchfab.com/hippostance)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Foyer Table" (https://sketchfab.com/3d-models/foyer-table-96a59672857c498da5c7ca82c793a6e5) by HippoStance (https://sketchfab.com/hippostance) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

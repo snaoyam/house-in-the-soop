@@ -1,0 +1,11 @@
+Model Information:
+* title:	Toothbrush.5
+* source:	https://sketchfab.com/3d-models/toothbrush5-2f4bd3002b2e456c99abee54b488967d
+* author:	IR4jeckkkkkk (https://sketchfab.com/IR4jeckkkkkk)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Toothbrush.5" (https://sketchfab.com/3d-models/toothbrush5-2f4bd3002b2e456c99abee54b488967d) by IR4jeckkkkkk (https://sketchfab.com/IR4jeckkkkkk) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

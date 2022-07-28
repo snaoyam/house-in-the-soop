@@ -1,0 +1,11 @@
+Model Information:
+* title:	Mars Poster
+* source:	https://sketchfab.com/3d-models/mars-poster-fe37ea9b8bdd4debab6605facd087bc4
+* author:	Whystler (https://sketchfab.com/Whystler)
+
+Model License:
+* license type:	CC-BY-NC-ND-4.0 (http://creativecommons.org/licenses/by-nc-nd/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions can not be distributed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Mars Poster" (https://sketchfab.com/3d-models/mars-poster-fe37ea9b8bdd4debab6605facd087bc4) by Whystler (https://sketchfab.com/Whystler) licensed under CC-BY-NC-ND-4.0 (http://creativecommons.org/licenses/by-nc-nd/4.0/)

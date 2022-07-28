@@ -1,0 +1,11 @@
+Model Information:
+* title:	Art Frame
+* source:	https://sketchfab.com/3d-models/art-frame-25b86d7272e849f0967149243601bcbf
+* author:	peterthanh84.tl (https://sketchfab.com/peterthanh84.tl)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Art Frame" (https://sketchfab.com/3d-models/art-frame-25b86d7272e849f0967149243601bcbf) by peterthanh84.tl (https://sketchfab.com/peterthanh84.tl) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

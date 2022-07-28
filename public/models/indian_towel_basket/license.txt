@@ -1,0 +1,11 @@
+Model Information:
+* title:	Indian Towel Basket
+* source:	https://sketchfab.com/3d-models/indian-towel-basket-7ec228e046b84b89bf1edd74598e55b8
+* author:	Veufx Studio (https://sketchfab.com/veufx)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Indian Towel Basket" (https://sketchfab.com/3d-models/indian-towel-basket-7ec228e046b84b89bf1edd74598e55b8) by Veufx Studio (https://sketchfab.com/veufx) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Air conditioning control - Eletrolux
+* source:	https://sketchfab.com/3d-models/air-conditioning-control-eletrolux-6dff80806c54455895c698e217260d45
+* author:	EduardoIkeda (https://sketchfab.com/EduardoIkeda)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Air conditioning control - Eletrolux" (https://sketchfab.com/3d-models/air-conditioning-control-eletrolux-6dff80806c54455895c698e217260d45) by EduardoIkeda (https://sketchfab.com/EduardoIkeda) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gaming Chair
+* source:	https://sketchfab.com/3d-models/gaming-chair-6ca81f60846648609b4208c9e7f31b14
+* author:	9arts (https://sketchfab.com/9arts)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gaming Chair" (https://sketchfab.com/3d-models/gaming-chair-6ca81f60846648609b4208c9e7f31b14) by 9arts (https://sketchfab.com/9arts) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
