@@ -19,6 +19,9 @@ import Music from '../models/music'
 import Speakers from '../models/speakers'
 import Nintendo from '../models/nintendo'
 import CoffeeTable from '../models/coffeetable'
+import Item from '../utils/item'
+import { nanoid } from 'nanoid'
+import TWallBack from '../models/wall_back'
 
 function Effect() {
     const { gl, scene, camera, size } = useThree()
@@ -35,14 +38,17 @@ const objects = [
     { key: 0, position: objectsPos, rotation: [Math.PI / 2, 0, 0], child: <Poster2 /> },
     { key: 1, position: objectsPos, rotation: [0, Math.PI / 2, 0], child: <Binback /> },
     { key: 2, position: objectsPos, child: <Music /> },
-    { key: 3, position: objectsPos, child: <Nintendo /> },
-    { key: 4, position: objectsPos, child: <CoffeeTable /> },
+    { key: 3, position: objectsPos, child: <CoffeeTable /> },
+    { key: 4, position: objectsPos, child: <Nintendo /> },
 ];
+const wallThickness = 0.3
+const dimension = { a: 50, b: 50, h: 50 } //a: left, b: right, h: height
 
 const Studio = () => {
     const cameraPosition = [30, 20, 30]
     const [pointerPosition, setPointerPosition] = useState({ point: null, normal: null })
     const [grab, setGrab] = useState({ object: null, position: null })
+    const objectList = useRef({})
 
     return (
         <Box sx={{
@@ -80,34 +86,38 @@ const Studio = () => {
                     <Effect />
                     <Background color="#e8bcf0"
                     />
-                    <Room position={[0, 0, 0]} dimension={{ a: 12, b: 15, h: 10 }} wallThickness={0.3} wallpaperThickness={0.6}
+                    <TWallBack position={[-(wallThickness / 2), dimension.h / 2 - wallThickness / 2, dimension.b / 2]} rotation={[0, 0, 0]} scale={[wallThickness, dimension.h + wallThickness, dimension.b]} />
+                    <TWallBack position={[dimension.a / 2 - wallThickness / 2, dimension.h / 2 - wallThickness / 2, -wallThickness / 2]} rotation={[0, Math.PI / 2, 0]} scale={[wallThickness, dimension.h + wallThickness, dimension.a + wallThickness]} />
+                    <TWallBack position={[dimension.a / 2, -wallThickness / 2, dimension.b / 2]} rotation={[Math.PI / 2, Math.PI / 2, 0]} scale={[wallThickness, dimension.b, dimension.a]} />
+                    <Room objectList={objectList} pointerPosition={pointerPosition} grab={grab}
+                        position={[0, 0, 0]} dimension={{ a: 12, b: 15, h: 10 }} wallThickness={0.3} wallpaperThickness={0.6}
                         bottomWPTexture={useLoader(TextureLoader, '/texture/floor2.webp')}
                         // sideWPTextureL={useLoader(TextureLoader, '/texture/whitetile.jpg')}
                         // sideWPTextureR={useLoader(TextureLoader, '/texture/whitetile.jpg')}
                         wallColor={{ top: "#cbab7c", bottom: "#cbab7c", swL: "#003366", swR: "#ffffff" }} />
-                    <Draggable position={[8.5, 0, 4.5]} rotation={[0, Math.PI, 0]} pointerPosition={pointerPosition} grab={grab} child={
-                        <GameChair />
-                    } />
-                    <Draggable position={[9, 3, 2.5]} rotation={[0, -Math.PI / 2, 0]} pointerPosition={pointerPosition} grab={grab} child={
-                        <GameDesktop />
-                    } />
-                    <Draggable position={[1, 4, 8]} rotation={[0, Math.PI / 2, 0]} pointerPosition={pointerPosition} grab={grab} child={
-                        <Projector />
-                    } />
-                    <Draggable position={[1, 0, 10]} rotation={[0, Math.PI / 2, 0]} pointerPosition={pointerPosition} grab={grab} child={
-                        <Speakers />
-                    } />
-                    <Draggable position={[2, 4, 4]} rotation={[0, Math.PI / 5, 0]} pointerPosition={pointerPosition} grab={grab} child={
-                        <Arcade />
-                    } />
-                    <Draggable position={[6, 0, 7]} rotation={[0, Math.PI / 2, 0]} pointerPosition={pointerPosition} grab={grab} child={
-                        <Rug3 />
-                    } />
+                    <Item draggable={false} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current}
+                        position={[8.5, 0, 4.5]} rotation={[0, Math.PI, 0]}>
+                        <GameChair /></Item>
+                    <Item draggable={false} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current}
+                        position={[9, 3, 2.5]} rotation={[0, -Math.PI / 2, 0]}>
+                        <GameDesktop /></Item>
+                    <Item draggable={false} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current}
+                        position={[1, 4, 8]} rotation={[0, Math.PI / 2, 0]}>
+                        <Projector /></Item>
+                    <Item draggable={false} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current}
+                        position={[1, 0, 10]} rotation={[0, Math.PI / 2, 0]}>
+                        <Speakers /></Item>
+                    <Item draggable={false} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current}
+                        position={[2, 4, 4]} rotation={[0, Math.PI / 5, 0]}>
+                        <Arcade /></Item>
+                    <Item draggable={false} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current}
+                        position={[6, 0, 7]} rotation={[0, Math.PI / 2, 0]}>
+                        <Rug3 /></Item>
                     <MovingBox
                         positionB={boxPos} positionD={objectsPos} scale={[2, 2, 2]}
                         map={useLoader(TextureLoader, '/texture/box.png')}
                         dummyTexture={useLoader(TextureLoader, '/texture/newspaper.jpeg')} />
-                    {Objects(objects).map(({ key, position, rotation, scale, child }) => <Draggable key={key} position={position} rotation={rotation} scale={scale} pointerPosition={pointerPosition} grab={grab} child={child} />)}
+                    {Objects(objects).map(({ key, position, rotation, scale, child }) => <Item draggable={true} key={key} position={position} rotation={rotation} scale={scale} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={key}>{child}</Item>)}
                 </group>
                 <ambientLight />
                 <pointLight position={[10, 10, 10]} />
