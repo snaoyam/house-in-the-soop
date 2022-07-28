@@ -141,6 +141,40 @@ const LivingRoom = () => {
         {/* <OrthographicCamera makeDefault zoom={40} position={[30, 20, 30]} rotation={[-0.5880026035475675, 0.693980594900994, 0.40305707446611316]} /> */}
         {/* <OrbitControls /> */}
       </Canvas>
+      <Box sx={{
+        position: 'absolute',
+        bottom: 0,
+        width: 'calc(100% - 100px)',
+        height: '100px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 50px',
+      }}>
+        <Box
+          component="img"
+          sx={{
+            height: '100%',
+            transform: 'scaleX(-1)',
+            cursor: 'pointer',
+          }}
+          onClick={() => {
+            window.location.href = `/${4}`
+          }}
+          src="/arrow.png"
+        />
+        <Box
+          component="img"
+          sx={{
+            height: '100%',
+            cursor: 'pointer',
+          }}
+          onClick={() => {
+            window.location.href = `/${1}`
+          }}
+          src="/arrow.png"
+        />
+      </Box>
     </Box>
   )
 }

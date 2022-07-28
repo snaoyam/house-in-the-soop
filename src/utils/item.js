@@ -47,7 +47,7 @@ class Item extends React.Component {
   moveItemPosition() {
     const pixel = 64
     if (this.grabbing && this.props.grab.object != null) {
-      // console.log(this.props.grab.object, this.uuid)
+      // console.log(this.props.grab, this.uuid)
       // if (this.props.grab.object.parent.uuid == this.uuid) {
         const objectMoveDelta = this.props.pointerPosition.point.clone().sub(this.props.grab.position ?? (new THREE.Vector3(0, 0, 0)))
         const objectPosition = this.grabPosition.clone().add(objectMoveDelta)
@@ -134,7 +134,7 @@ class Item extends React.Component {
           const moveY = (closestSpace.index == 2) ? closestSpace.space.at(0) - objectBoundingBox.min.y : ((((closestSpace.space.at(1).minY * pixel | 7) + 1) / pixel) - Math.min((((closestSpace.space.at(1).minY * pixel | 7) + 1) / pixel), objectBoundingBox.min.y) + ((closestSpace.space.at(1).maxY * pixel & -8) / pixel)  - Math.max(objectBoundingBox.max.y, ((closestSpace.space.at(1).maxY * pixel & -8) / pixel) ))
           const moveZ = (closestSpace.index == 0) ? closestSpace.space.at(0) - objectBoundingBox.min.z : ((((closestSpace.space.at(1).minZ * pixel | 7) + 1) / pixel) - Math.min((((closestSpace.space.at(1).minZ * pixel | 7) + 1) / pixel), objectBoundingBox.min.z) + ((closestSpace.space.at(1).maxZ * pixel & -8) / pixel)  - Math.max(objectBoundingBox.max.z, ((closestSpace.space.at(1).maxZ * pixel & -8) / pixel) ))
           objectPosition.add(new THREE.Vector3(moveX, moveY, moveZ))
-          objectPosition.sub(new THREE.Vector3(objectPosition.x - (objectPosition.x * 64 & -8) / 64, objectPosition.y - (objectPosition.y * 64 & -8) / 64, objectPosition.z - (objectPosition.z * 64 & -8) / 64))
+          // objectPosition.sub(new THREE.Vector3(objectPosition.x - (objectPosition.x * 64 & -8) / 64, objectPosition.y - (objectPosition.y * 64 & -8) / 64, objectPosition.z - (objectPosition.z * 64 & -8) / 64))
         }
         
         this.setState((state) => {
@@ -142,8 +142,11 @@ class Item extends React.Component {
         })
       // }
       // else {
-      //   this.grabbing = false
+      //   
       // }
+    }
+    else {
+      this.grabbing = false
     }
   }
 

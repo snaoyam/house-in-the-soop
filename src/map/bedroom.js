@@ -145,6 +145,40 @@ const Bedroom = () => {
                 {/* <pointLight position={[30, 30, 30]} /> */}
                 {/* <OrbitControls /> */}
             </Canvas >
+            <Box sx={{
+                position: 'absolute',
+                bottom: 0,
+                width: 'calc(100% - 100px)',
+                height: '100px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '0 50px',
+            }}>
+                <Box
+                    component="img"
+                    sx={{
+                        height: '100%',
+                        transform: 'scaleX(-1)',
+                        cursor: 'pointer',
+                    }}
+                    onClick={() => {
+                        window.location.href = `/${2}`
+                    }}
+                    src="/arrow.png"
+                />
+                <Box
+                    component="img"
+                    sx={{
+                        height: '100%',
+                        cursor: 'pointer',
+                    }}
+                    onClick={() => {
+                        window.location.href = `/${4}`
+                    }}
+                    src="/arrow.png"
+                />
+            </Box>
         </Box >
     )
 }
