@@ -126,7 +126,10 @@ const LivingRoom = () => {
           <Item draggable={true} position={[3.2, 1, 6]} scale={[2, 2, 4]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <TBox color="brown" />
           </Item>
-          <Item draggable={true} position={[8, 0.5, 8]} scale={[0.5, 1, 0.3]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
+          <Item draggable={true} position={[8, 0.5, 8]} scale={[0.5, 0.3, 0.3]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
+            <TBox color="blue" />
+          </Item>
+          <Item draggable={true} position={[1, 1, 12]} scale={[0.5, 1, 0.3]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <TBox color="blue" />
           </Item>
           <Item draggable={false} position={[10, 4, 6]} scale={[1, 2, 2]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
