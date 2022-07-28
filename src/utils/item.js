@@ -59,18 +59,18 @@ class Item extends React.Component {
             this.grabbing = false
             const boundingBox = new THREE.Box3().setFromObject(e.eventObject)
             
-            const radius = Array.from(e.eventObject.position.clone().sub(boundingBox.min))[this.props.pointerPosition.normal]
-            // const boundingBoxVector = boundingBox.max.clone().sub(boundingBox.min)
-            // Array.from(boundingBoxVector)[this.props.pointerPosition.normal] / 2
-            const radiusVector = (new THREE.Vector3(this.props.pointerPosition.normal == 0 ? 1 : 0, this.props.pointerPosition.normal == 1 ? 1 : 0, this.props.pointerPosition.normal == 2 ? 1 : 0)).multiplyScalar(radius + 0.01)
-            this.setState((state) => {
-              return { ...state, position: radiusVector.add(this.props.pointerPosition.point) }
-            })
+            // const radius = Array.from(e.eventObject.position.clone().sub(boundingBox.min))[this.props.pointerPosition.normal]
+            // // const boundingBoxVector = boundingBox.max.clone().sub(boundingBox.min)
+            // // Array.from(boundingBoxVector)[this.props.pointerPosition.normal] / 2
+            // const radiusVector = (new THREE.Vector3(this.props.pointerPosition.normal == 0 ? 1 : 0, this.props.pointerPosition.normal == 1 ? 1 : 0, this.props.pointerPosition.normal == 2 ? 1 : 0)).multiplyScalar(radius + 0.01)
+            // this.setState((state) => {
+            //   return { ...state, position: radiusVector.add(this.props.pointerPosition.point) }
+            // })
             this.props.objectList.current[this.props.nanoid] = { boundingBox: boundingBox, whitelist: this.props.whitelist, blacklist: this.props.blacklist }
           }
         }}
         onPointerMove={(e) => {
-          if (this.grabbing) {
+          if (this.grabbing && this.props.grab.object != null) {
             const objectMoveDelta = this.props.pointerPosition.point.clone().sub(this.props.grab.position ?? (new THREE.Vector3(0, 0, 0)))
             const objectPosition = this.grabPosition.clone().add(objectMoveDelta)
             const objectBoundingBox = { min: this.grabBoundingBox.min.clone().add(objectMoveDelta), max: this.grabBoundingBox.max.clone().add(objectMoveDelta) }
@@ -145,47 +145,25 @@ class Item extends React.Component {
                 + ((v) => v * v)(c.at(0) - objectBoundingBox.min.y)
               return a.distance > distance ? { distance: distance, space: c } : a
             }, { distance: Infinity, space: {} })
-                
-            //     const cArea = ((Math.min(c.max.x, objectBoundingBox.max.x) - Math.max(c.min.x, objectBoundingBox.min.x)) * (Math.min(c.max.y, objectBoundingBox.max.y) - Math.max(c.min.y, objectBoundingBox.min.y)))
-            //     const vAreaLarger = ((v.max.x - v.min.x) * (v.max.y - v.min.y)) > ((objectBoundingBox.max.x - objectBoundingBox.min.x) * (objectBoundingBox.max.y - objectBoundingBox.min.y))
-            //     return (vArea > cArea && vAreaLarger) ? { ...v, cover: [] } : { ...c, cover: { min: { x: Infinity, y: Infinity }, max: { x: -Infinity, y: -Infinity } } }
-            //   }, { possibleArea: [], cover: [] })
-            // const rightCloseItem = rightProjection
-            //   // [{ z: objectBoundingBox.min.z, y: objectBoundingBox.min.y }, { z: objectBoundingBox.max.z, y: objectBoundingBox.min.y }, { z: objectBoundingBox.min.z, y: objectBoundingBox.max.y }, { z: objectBoundingBox.max.z, y: objectBoundingBox.max.y },]
-            //   //.map((v) => { return rightProjection.find((w) => (objectBoundingBox.max.x > w.max.x && w.max.z > v.z && w.min.z < v.z && w.max.y > v.y && w.min.y < v.y)) })
-            //   .reduce((v, c) => {
-            //     if (c == undefined) return v
-            //     const vArea = ((Math.min(v.max.z, objectBoundingBox.max.z) - Math.max(v.min.z, objectBoundingBox.min.z)) * (Math.min(v.max.y, objectBoundingBox.max.y) - Math.max(v.min.y, objectBoundingBox.min.y)))
-            //     const cArea = ((Math.min(c.max.z, objectBoundingBox.max.z) - Math.max(c.min.z, objectBoundingBox.min.z)) * (Math.min(c.max.y, objectBoundingBox.max.y) - Math.max(c.min.y, objectBoundingBox.min.y)))
-            //     return vArea > cArea ? v : c
-            //   }, { min: new THREE.Vector3(0, 0, 0), max: new THREE.Vector3(0, 0, 0) })
-            // const topCloseItem = topProjection
-            //   // [{ x: objectBoundingBox.min.x, z: objectBoundingBox.min.z }, { x: objectBoundingBox.max.x, z: objectBoundingBox.min.z }, { x: objectBoundingBox.min.x, z: objectBoundingBox.max.z }, { x: objectBoundingBox.max.x, z: objectBoundingBox.max.z },]
-            //   //.map((v) => { return topProjection.find((w) => (objectBoundingBox.max.y > w.max.y && w.max.x > v.x && w.min.x < v.x && w.max.z > v.z && w.min.z < v.z)) })
-            //   .reduce((v, c) => {
-            //     if (c == undefined) return v
-            //     const vArea = ((Math.min(v.max.x, objectBoundingBox.max.x) - Math.max(v.min.x, objectBoundingBox.min.x)) * (Math.min(v.max.z, objectBoundingBox.max.z) - Math.max(v.min.z, objectBoundingBox.min.z)))
-            //     const cArea = ((Math.min(c.max.x, objectBoundingBox.max.x) - Math.max(c.min.x, objectBoundingBox.min.x)) * (Math.min(c.max.z, objectBoundingBox.max.z) - Math.max(c.min.z, objectBoundingBox.min.z)))
-            //     return vArea > cArea ? v : c
-            //   }, { min: new THREE.Vector3(0, 0, 0), max: new THREE.Vector3(0, 0, 0) })
-            
+            const closestSpacePixel = [leftClosestSpace, rightClosestSpace, topClosestSpace].reduce((a, c, index) => {
+              if(Number.isFinite(c.distance)) {
+                return a.distance > c.distance ? { ...c, index: index } : a
+              }
+              return a
+            }, {index: -1, distance: Infinity, space: {}})
+            if (closestSpacePixel.index != -1) {
+              const moveX = (closestSpacePixel.index == 1) ? closestSpacePixel.space.at(0) - objectBoundingBox.min.x : (closestSpacePixel.space.at(1).minX - Math.min(closestSpacePixel.space.at(1).minX, objectBoundingBox.min.x) + closestSpacePixel.space.at(1).maxX - Math.max(objectBoundingBox.max.x, closestSpacePixel.space.at(1).maxX))
+              const moveY = (closestSpacePixel.index == 2) ? closestSpacePixel.space.at(0) - objectBoundingBox.min.y : (closestSpacePixel.space.at(1).minY - Math.min(closestSpacePixel.space.at(1).minY, objectBoundingBox.min.y) + closestSpacePixel.space.at(1).maxY - Math.max(objectBoundingBox.max.y, closestSpacePixel.space.at(1).maxY))
+              const moveZ = (closestSpacePixel.index == 0) ? closestSpacePixel.space.at(0) - objectBoundingBox.min.z : (closestSpacePixel.space.at(1).minZ - Math.min(closestSpacePixel.space.at(1).minZ, objectBoundingBox.min.z) + closestSpacePixel.space.at(1).maxZ - Math.max(objectBoundingBox.max.z, closestSpacePixel.space.at(1).maxZ))
+              objectPosition.add(new THREE.Vector3(moveX, moveY, moveZ))
+              objectPosition.sub(new THREE.Vector3(objectPosition.x - (objectPosition.x * 64 & -8) / 64, objectPosition.y - (objectPosition.y * 64 & -8) / 64, objectPosition.z - (objectPosition.z * 64 & -8) / 64))
+            }
+            this.setState((state) => {
+              return { ...state, position: objectPosition }
+            })
           }
         }}
-        position={
-          (() => {
-            if (this.grabbing && this.props.grab.object != null) {
-              
-              // const objectBoundingBox_min = this.grabBoundingBox.min.clone().
-              
-              
-              
-              return this.state.position.clone().add(this.props.pointerPosition.point.clone().sub(this.props.grab.position ?? (new THREE.Vector3(0, 0, 0))))
-            }
-            else {
-              return this.state.position
-            }
-          })()
-        }
+        position={this.state.position}
         rotation={this.props.rotation}
         scale={this.props.scale}
       >
