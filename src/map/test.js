@@ -1,15 +1,22 @@
-import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
+import { Canvas, useFrame, useThree, useLoader, extend } from '@react-three/fiber'
 import { Box } from '@mui/material'
 import * as THREE from 'three'
 import Room from '../models/room'
 import React, { useRef, useState, useEffect, useMemo } from "react"
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader"
-import TBox from '../models/box'
 import Draggable from '../utils/draggable.js'
 import { MovingBox, Objects } from '../models/movingBox'
 import { TextureLoader } from 'three'
 import PostFX from '../utils/PostFX'
 import Background from '../models/background'
+
+// import { Outline } from 'three/examples/jsm/postprocessing/OutlinePass'
+import { Selection, Select, EffectComposer, Outline, Pixelation } from '@react-three/postprocessing'
+// import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer"
+import { OutlinePass } from "three/examples/jsm/postprocessing/OutlinePass"
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass"
+import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass"
+
 import Tub from '../models/tub'
 import BathSink from '../models/bathSink'
 import Toilet from '../models/toilet'
@@ -28,8 +35,16 @@ import WashingMachine from '../models/washmachine'
 import Mirror from '../models/mirror'
 import Hamper from '../models/hamper'
 import WindowFrame from '../models/windowframe'
-import Tablee from '../models/tablee'
 import Blinds from '../models/blinds'
+import Towel from '../models/towel'
+import TowelBasket from '../models/towelbasket'
+import Cabinet1 from '../models/cabinet1'
+import { Edges } from '@react-three/drei'
+
+
+extend({ RenderPass, OutlinePass, ShaderPass })
+// extend({ EffectComposer })
+// extend({ Outline })
 
 function Effect() {
     const { gl, scene, camera, size } = useThree()
@@ -39,8 +54,8 @@ function Effect() {
     }, 1)
 }
 
-const boxPos = [12, 1, 9]
-const objectsPos = [12, 1.7, 9]
+const boxPos = [13, 1, 6]
+const objectsPos = [13, 1.7, 6]
 
 const objects = [
     { key: 0, position: objectsPos, child: <IndoorPlant /> },
@@ -50,37 +65,49 @@ const objects = [
     { key: 4, position: objectsPos, child: <Toothpaste /> },
     { key: 5, position: objectsPos, child: <Shampoo /> },
     { key: 6, position: objectsPos, child: <Shampoo2 /> },
+    { key: 7, position: objectsPos, rotation: [0, Math.PI / 2, 0], child: <Towel /> },
 ];
 
-const context = React.createContext()
-const Outline = ({ children }) => {
-    const { gl, scene, camera, size } = useThree()
-    const composer = useRef()
-    const [hovered, set] = useState([])
-    const aspect = useMemo(() => new THREE.Vector2(size.width, size.height), [size])
-    useEffect(() => composer.current.setSize(size.width, size.height), [size])
-    useFrame(() => composer.current.render(), 1)
-    console.log(123)
+// const context = React.createContext()
+// const Outline = ({ children }) => {
+//     const { gl, scene, camera, size } = useThree()
+//     const composer = useRef()
+//     const hovered = [children]
+//     const aspect = useMemo(() => new THREE.Vector2(size.width, size.height), [size])
+//     useEffect(() => composer.current.setSize(size.width, size.height), [size])
+//     // useFrame(() => composer.current.render(), 1)
+//     // console.log(children)
+//     return (
+//         <context.Provider value={hovered}>
+//             {children}
+//             <effectComposer ref={composer} args={[gl]}>
+//                 <renderPass attachArray="passes" args={[scene, camera]} />
+//                 <outlinePass
+//                     attachArray="passes"
+//                     args={[aspect, scene, camera]}
+//                     selectedObjects={hovered}
+//                     visibleEdgeColor="white"
+//                     edgeStrength={50}
+//                     edgeThickness={1}
+//                 />
+//             </effectComposer>
+//         </context.Provider>
+//     )
+// }
+
+function TestBox(props) {
+    const ref = useRef()
     return (
-        <context.Provider value={set}>
-            {children}
-            <effectComposer ref={composer} args={[gl]}>
-                <renderPass attachArray="passes" args={[scene, camera]} />
-                <outlinePass
-                    attachArray="passes"
-                    args={[aspect, scene, camera]}
-                    selectedObjects={hovered}
-                    visibleEdgeColor="white"
-                    edgeStrength={50}
-                    edgeThickness={1}
-                />
-                <shaderPass attachArray="passes" args={[FXAAShader]} uniforms-resolution-value={[1 / size.width, 1 / size.height]} />
-            </effectComposer>
-        </context.Provider>
+        <Select enabled={true}>
+            <mesh ref={ref} {...props}>
+                <boxGeometry />
+                <meshStandardMaterial color="orange" />
+            </mesh>
+        </Select>
     )
 }
 
-const Bathroom = () => {
+const Test = () => {
     const cameraPosition = [30, 20, 30]
     const [pointerPosition, setPointerPosition] = useState({ point: null, normal: null })
     const [grab, setGrab] = useState({ object: null, position: null })
@@ -118,39 +145,54 @@ const Bathroom = () => {
                         setGrab({ object: null, position: null })
                     }}
                 >
-                    <Effect />
-                    <Background color="#684536"
-                    />
-                    <Outline>
-                        <Room position={[0, 0, 0]} dimension={{ a: 15, b: 12, h: 10 }} wallThickness={0.5} wallpaperThickness={0.3}
-                            bottomWPTexture={useLoader(TextureLoader, '/texture/tile.jpg')}
-                            sideWPTextureL={useLoader(TextureLoader, '/texture/floor3.jpg')}
-                            sideWPTextureR={useLoader(TextureLoader, '/texture/floor3.jpg')}
-                            wallColor={{ top: "#D9D9D9", bottom: "#D9D9D9", swL: "#efe7db", swR: "#808080" }} />
-                        <mesh position={[-17, -1, 6]} rotation={[0, Math.PI / 2, 0]}><Tub /></mesh>
-                        <mesh position={[6, 0, 1]}><BathSink /></mesh>
-                        <mesh position={[12, 0, 1]}><Toilet /></mesh>
-                        <mesh position={[6, 0, 3]} rotation={[0, Math.PI / 2, 0]}><Rug /></mesh>
-                        <mesh position={[1.5, 0, 2.5]} rotation={[0, Math.PI / 2, 0]}><WashingMachine /></mesh>
-                        <mesh position={[1, 0, 5]}><Hamper /></mesh>
-                        <mesh position={[15, 3, 1]} rotation={[0, -Math.PI / 2, 0]}><ToiletPaper /></mesh>
-                        <mesh position={[18.5, 0, 2]}><Trashcan /></mesh>
-                        <mesh position={[6, 5.5, 0.1]}><Mirror /></mesh>
-                        <mesh position={[7, 12, 12]} rotation={[0, Math.PI / 2, 0]}><WindowFrame /></mesh>
-                        <mesh position={[7, 11.5, 17.7]} rotation={[0, Math.PI / 2, 0]}><Blinds /></mesh>
-                    </Outline>
+                    {/* <Selection> */}
+                    {/* <EffectComposer multisampling={8} autoClear={false}>
+                        <Outline visibleEdgeColor={"gray"} hiddenEdgeColor={0x22090a} edgeStrength={10} />
+                        <Pixelation granularity={4} />
+                    </EffectComposer> */}
+                    <Background color="#684536" />
+                    <Room position={[0, 0, 0]} dimension={{ a: 15, b: 12, h: 10 }} wallThickness={0.5} wallpaperThickness={0.3}
+                        bottomWPTexture={useLoader(TextureLoader, '/texture/tile.jpg')}
+                        sideWPTextureL={useLoader(TextureLoader, '/texture/floor3.jpg')}
+                        sideWPTextureR={useLoader(TextureLoader, '/texture/floor3.jpg')}
+                        wallColor={{ top: "#D9D9D9", bottom: "#D9D9D9", swL: "#efe7db", swR: "#808080" }} />
+                    {/* <Select enabled={true}> */}
+                    <mesh position={[-17, -1, 6]} rotation={[0, Math.PI / 2, 0]}>
+                        <Tub />
+                        {/* <Edges /> */}
+                    </mesh>
+                    <mesh position={[6, 0, 1]}><BathSink /></mesh>
+                    <mesh position={[12, 0, 1]}><Toilet /></mesh>
+                    <mesh position={[6, 0, 3]} rotation={[0, Math.PI / 2, 0]}><Rug /></mesh>
+                    <mesh position={[1.5, 0, 2.5]} rotation={[0, Math.PI / 2, 0]}><WashingMachine /></mesh>
+                    <mesh position={[1, 0, 5]}><Hamper /></mesh>
+                    <mesh position={[15, 3, 1]} rotation={[0, -Math.PI / 2, 0]}><ToiletPaper /></mesh>
+                    <mesh position={[18.5, 0, 2]}><Trashcan /></mesh>
+                    <mesh position={[6, 5.5, 0.1]}><Mirror /></mesh>
+                    <mesh position={[7, 12, 12]} rotation={[0, Math.PI / 2, 0]}><WindowFrame /></mesh>
+                    <mesh position={[7, 11.5, 17.7]} rotation={[0, Math.PI / 2, 0]}><Blinds /></mesh>
+                    <Draggable position={[13, 0, 10]} rotation={[0, Math.PI / 2, 0]} pointerPosition={pointerPosition} grab={grab} child={
+                        <TowelBasket />
+                    } />
+                    {/* <Draggable position={[1, -0.2, 12]} rotation={[0, Math.PI / 2, 0]} pointerPosition={pointerPosition} grab={grab} child={
+                                <Cabinet1 />
+                            } /> */}
                     <MovingBox
                         positionB={boxPos} positionD={objectsPos} scale={[2, 2, 2]}
                         map={useLoader(TextureLoader, '/texture/box.png')}
                         dummyTexture={useLoader(TextureLoader, '/texture/newspaper.jpeg')} />
                     {Objects(objects).map(({ key, position, rotation, scale, child }) => <Draggable key={key} position={position} rotation={rotation} scale={scale} pointerPosition={pointerPosition} grab={grab} child={child} />)}
+                    {/* </Select> */}
+                    {/* </Selection> */}
+                    <Effect />
                 </group>
                 <ambientLight />
                 <pointLight position={[10, 10, 10]} />
+                {/* <pointLight position={[30, 30, 30]} /> */}
                 {/* <OrbitControls /> */}
             </Canvas>
-        </Box>
+        </Box >
     )
 }
 
-export default Bathroom
+export default Test

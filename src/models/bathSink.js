@@ -8,6 +8,7 @@ title: Bathroom Sink [FREE] | Agustin Honnun
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Edges } from '@react-three/drei'
 
 export default function BathSink(props) {
     const group = useRef()
@@ -21,8 +22,11 @@ export default function BathSink(props) {
                             castShadow
                             receiveShadow
                             geometry={nodes.Cube_Ceramica_0.geometry}
-                            material={materials.Ceramica}
-                        />
+                            material={materials.Ceramica}>
+                            <Edges
+                                color='rgb(200, 200, 200)'
+                                threshold={30} />
+                        </mesh>
                     </group>
                     <group
                         position={[0, 399.71, -81.59]}

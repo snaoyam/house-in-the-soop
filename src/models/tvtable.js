@@ -8,6 +8,7 @@ title: Esme Coffee Table With 2 Drawers, White And Ash
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Edges } from '@react-three/drei'
 
 export default function TVTable(props) {
     const group = useRef()
@@ -21,8 +22,11 @@ export default function TVTable(props) {
                             castShadow
                             receiveShadow
                             geometry={nodes.Plane001_FLOOR_0.geometry}
-                            material={materials.FLOOR}
-                        />
+                            material={materials.FLOOR}>
+                            {/* <Edges
+                                color='rgb(200, 200, 200)'
+                                threshold={25} /> */}
+                        </mesh>
                     </group>
                     <group position={[0, 22.58, 0]} rotation={[-Math.PI / 2, 0, 0]}>
                         <group position={[-74.28, 10, 70.22]}>
@@ -30,14 +34,20 @@ export default function TVTable(props) {
                                 castShadow
                                 receiveShadow
                                 geometry={nodes.Esme_Coffee_Table_with_2_Drawers_Ash_WHITE_0.geometry}
-                                material={materials.WHITE}
-                            />
+                                material={materials.WHITE}>
+                                <Edges
+                                    color='rgb(200, 200, 200)'
+                                    threshold={25} />
+                            </mesh>
                             <mesh
                                 castShadow
                                 receiveShadow
                                 geometry={nodes.Esme_Coffee_Table_with_2_Drawers_Ash_ASH_0.geometry}
-                                material={materials.material}
-                            />
+                                material={materials.material}>
+                                <Edges
+                                    color='rgb(200, 200, 200)'
+                                    threshold={25} />
+                            </mesh>
                         </group>
                     </group>
                 </group>

@@ -8,8 +8,9 @@ title: Bath with sink
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Edges } from '@react-three/drei'
 
-export default function Sink(props) {
+export default function Tub(props) {
     const group = useRef()
     const { nodes, materials } = useGLTF('/models/bath_with_sink/scene.gltf')
     return (
@@ -25,15 +26,21 @@ export default function Sink(props) {
                                 castShadow
                                 receiveShadow
                                 geometry={nodes.sink_bath_0.geometry}
-                                material={nodes.sink_bath_0.material}
-                            />
+                                material={nodes.sink_bath_0.material}>
+                                <Edges
+                                    color='rgb(200, 200, 200)'
+                                    threshold={25} />
+                            </mesh>
                         </group>
                         <mesh
                             castShadow
                             receiveShadow
                             geometry={nodes.bath_bath_0.geometry}
-                            material={nodes.bath_bath_0.material}
-                        />
+                            material={nodes.bath_bath_0.material}>
+                            <Edges
+                                color='rgb(200, 200, 200)'
+                                threshold={25} />
+                        </mesh>
                     </group>
                 </group>
             </group>

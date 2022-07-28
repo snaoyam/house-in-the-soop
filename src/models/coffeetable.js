@@ -8,6 +8,7 @@ title: coffee table Marina
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Edges } from '@react-three/drei'
 
 export default function CoffeeTable(props) {
     const group = useRef()
@@ -19,20 +20,29 @@ export default function CoffeeTable(props) {
                     castShadow
                     receiveShadow
                     geometry={nodes.Object_2.geometry}
-                    material={materials.kov_lakovan___er}
-                />
+                    material={materials.kov_lakovan___er}>
+                    {/* <Edges
+                        color='rgb(200, 200, 200)'
+                        threshold={25} /> */}
+                </mesh>
                 <mesh
                     castShadow
                     receiveShadow
                     geometry={nodes.Object_3.geometry}
-                    material={materials.White_Matte}
-                />
+                    material={materials.White_Matte}>
+                    <Edges
+                        color='rgb(200, 200, 200)'
+                        threshold={25} />
+                </mesh>
                 <mesh
                     castShadow
                     receiveShadow
                     geometry={nodes.Object_4.geometry}
-                    material={materials.material}
-                />
+                    material={materials.material}>
+                    {/* <Edges
+                        color='rgb(200, 200, 200)'
+                        threshold={25} /> */}
+                </mesh>
             </group>
         </group>
     )

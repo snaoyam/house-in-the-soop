@@ -8,6 +8,7 @@ title: Aveiro Cabinet, Natural Oak and White
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Edges } from '@react-three/drei'
 
 export default function Cabinet1(props) {
     const group = useRef()
@@ -21,8 +22,11 @@ export default function Cabinet1(props) {
                             castShadow
                             receiveShadow
                             geometry={nodes.GREY.geometry}
-                            material={materials.GREY}
-                        />
+                            material={materials.GREY}>
+                            <Edges
+                                color='rgb(250, 250, 250)'
+                                threshold={30} />
+                        </mesh>
                         <mesh
                             castShadow
                             receiveShadow

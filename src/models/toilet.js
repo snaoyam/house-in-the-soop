@@ -8,6 +8,7 @@ title: Low-poly toilet
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Edges } from '@react-three/drei'
 
 export default function Toilet(props) {
     const group = useRef()
@@ -19,21 +20,30 @@ export default function Toilet(props) {
                     castShadow
                     receiveShadow
                     geometry={nodes['toiled-material'].geometry}
-                    material={nodes['toiled-material'].material}
-                />
+                    material={nodes['toiled-material'].material}>
+                    <Edges
+                        color='rgb(200, 200, 200)'
+                        threshold={30} />
+                </mesh>
                 <mesh
                     castShadow
                     receiveShadow
                     geometry={nodes['toiled-material_1'].geometry}
-                    material={nodes['toiled-material_1'].material}
-                />
+                    material={nodes['toiled-material_1'].material}>
+                    <Edges
+                        color='rgb(200, 200, 200)'
+                        threshold={30} />
+                </mesh>
                 <lineSegments geometry={nodes.Object_7.geometry} material={nodes.Object_7.material} />
                 <mesh
                     castShadow
                     receiveShadow
                     geometry={nodes['toiled-material_2'].geometry}
-                    material={nodes['toiled-material_2'].material}
-                />
+                    material={nodes['toiled-material_2'].material}>
+                    <Edges
+                        color='rgb(200, 200, 200)'
+                        threshold={40} />
+                </mesh>
             </group>
         </group>
     )

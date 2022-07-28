@@ -8,6 +8,7 @@ title: Vitra Eames Plastic Chair
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Edges } from '@react-three/drei'
 
 export default function Chair(props) {
     const group = useRef()
@@ -32,8 +33,11 @@ export default function Chair(props) {
                         castShadow
                         receiveShadow
                         geometry={nodes.Object_4.geometry}
-                        material={nodes.Object_4.material}
-                    />
+                        material={nodes.Object_4.material}>
+                        <Edges
+                            color='rgb(250, 250, 250)'
+                            threshold={25} />
+                    </mesh>
                     <mesh
                         castShadow
                         receiveShadow

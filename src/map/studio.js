@@ -10,7 +10,6 @@ import PostFX from '../utils/PostFX'
 import Background from '../models/background'
 import GameChair from '../models/gamechair'
 import GameDesktop from '../models/gamedesktop'
-import Poster1 from '../models/poster1'
 import Poster2 from '../models/poster2'
 import Rug3 from '../models/rug3'
 import Arcade from '../models/arcade'
@@ -104,9 +103,6 @@ const Studio = () => {
                     <Draggable position={[6, 0, 7]} rotation={[0, Math.PI / 2, 0]} pointerPosition={pointerPosition} grab={grab} child={
                         <Rug3 />
                     } />
-                    {/* <Draggable position={[1, 7.5, 8]} rotation={[0, Math.PI / 2, 0]} pointerPosition={pointerPosition} grab={grab} child={
-                        <Poster1 />
-                    } /> */}
                     <MovingBox
                         positionB={boxPos} positionD={objectsPos} scale={[2, 2, 2]}
                         map={useLoader(TextureLoader, '/texture/box.png')}

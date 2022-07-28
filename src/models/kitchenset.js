@@ -8,6 +8,7 @@ title: Kitchen
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { Edges } from '@react-three/drei'
 
 export default function KitchenSet(props) {
     const group = useRef()
@@ -1817,8 +1818,11 @@ export default function KitchenSet(props) {
                                     castShadow
                                     receiveShadow
                                     geometry={nodes['elektricni_sporet_LOT2_Paint_Gloss_White_#2_0'].geometry}
-                                    material={nodes['elektricni_sporet_LOT2_Paint_Gloss_White_#2_0'].material}
-                                />
+                                    material={nodes['elektricni_sporet_LOT2_Paint_Gloss_White_#2_0'].material}>
+                                    <Edges
+                                        color='rgb(200, 200, 200)'
+                                        threshold={25} />
+                                </mesh>
                                 <mesh
                                     castShadow
                                     receiveShadow
@@ -2090,8 +2094,11 @@ export default function KitchenSet(props) {
                                 castShadow
                                 receiveShadow
                                 geometry={nodes.Frizider_COOL_HEAD_400_LT_LOT2_Paint_Gloss_White_0.geometry}
-                                material={nodes.Frizider_COOL_HEAD_400_LT_LOT2_Paint_Gloss_White_0.material}
-                            />
+                                material={nodes.Frizider_COOL_HEAD_400_LT_LOT2_Paint_Gloss_White_0.material}>
+                                <Edges
+                                    color='rgb(200, 200, 200)'
+                                    threshold={30} />
+                            </mesh>
                             <mesh
                                 castShadow
                                 receiveShadow
