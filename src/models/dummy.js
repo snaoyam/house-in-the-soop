@@ -4,6 +4,7 @@ import { useFrame, useLoader } from '@react-three/fiber'
 function Dummy(props) {
     return (
         <mesh
+            {...props}
             // onClick={(event) => { props.onClick() }}
             rotation={[Math.PI / 2, 0, 0]}>
             {/* <planeGeometry args={[1, 1]} attach="geometry" /> */}
