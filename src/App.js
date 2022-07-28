@@ -7,11 +7,13 @@ import Bedroom from './map/bedroom'
 import Studio from './map/studio'
 import Test from './map/test'
 import { Box, Button } from '@mui/material'
+import Start from './start'
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/start" element={<Start />} />
         <Route path="/0" element={<LivingRoom />} />
         <Route path="/1" element={<Bathroom />} />
         <Route path="/2" element={<Kitchen />} />
