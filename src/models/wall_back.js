@@ -7,10 +7,9 @@ function TWall(props) {
   // const [ref, api] = useBox(() => ({ type: 'Static', args: props.scale, mass: 0, ...props}))
   return (
     <group>
-      <mesh /*ref={ref}*/ material-transparent /*material-opacity={0.5}*/ position={props.position} rotation={props.rotation} scale={1}>
+      <mesh /*ref={ref}*/ material-transparent material-opacity={0} position={props.position} rotation={props.rotation} scale={1}>
         <boxGeometry args={props.scale} />
-        <meshLambertMaterial color={props.color} attach="material" side={DoubleSide} />
-        <Edges />
+        <meshLambertMaterial color={props.color} attach="material" side={DoubleSide} transparent opacity={0}/>
       </mesh>
     </group>
   )

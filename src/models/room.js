@@ -9,7 +9,7 @@ const TRoom = ({ position, objectList, pointerPosition, grab }) => {
   const dimension = {a: 10, b: 12, h: 10} //a: left, b: right, h: height
   const wallColor = {top: "#947b73", bottom: "#735c55"}
   return (
-    <group position={position} >
+    <group position={position}>
       <Item draggable={false} tag={"wall"} whitelist={{ left: ['drawing'], right: ['drawing'], top: ['drawing'] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current}>
         <TWall position={[-(wallThickness / 2), dimension.h / 2 - wallThickness / 2, dimension.b / 2]} rotation={[0, 0, 0]} scale={[wallThickness, dimension.h + wallThickness, dimension.b]} color={wallColor.top} />
       </Item>

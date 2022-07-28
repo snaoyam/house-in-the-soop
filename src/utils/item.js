@@ -15,6 +15,8 @@ class Item extends React.Component {
     this.grabPosition = null
     this.uuid = null
     this.itemsLocation = []
+    this.snap = true
+    this.objectBoundingBox = null
 
     this.state = {
       position: (new THREE.Vector3(this.initial.position[0], this.initial.position[1], this.initial.position[2])),
@@ -130,19 +132,24 @@ class Item extends React.Component {
           return a
         }, { index: -1, distance: Infinity, space: {} })
         if (closestSpace.index != -1 && closestSpace.distance < 5) {
+          this.snap = true
           const moveX = (closestSpace.index == 1) ? closestSpace.space.at(0) - objectBoundingBox.min.x : ((((closestSpace.space.at(1).minX * pixel | 7) + 1) / pixel) - Math.min((((closestSpace.space.at(1).minX * pixel | 7) + 1) / pixel), objectBoundingBox.min.x) + ((closestSpace.space.at(1).maxX * pixel & -8) / pixel)  - Math.max(objectBoundingBox.max.x, ((closestSpace.space.at(1).maxX * pixel & -8) / pixel) ))
           const moveY = (closestSpace.index == 2) ? closestSpace.space.at(0) - objectBoundingBox.min.y : ((((closestSpace.space.at(1).minY * pixel | 7) + 1) / pixel) - Math.min((((closestSpace.space.at(1).minY * pixel | 7) + 1) / pixel), objectBoundingBox.min.y) + ((closestSpace.space.at(1).maxY * pixel & -8) / pixel)  - Math.max(objectBoundingBox.max.y, ((closestSpace.space.at(1).maxY * pixel & -8) / pixel) ))
           const moveZ = (closestSpace.index == 0) ? closestSpace.space.at(0) - objectBoundingBox.min.z : ((((closestSpace.space.at(1).minZ * pixel | 7) + 1) / pixel) - Math.min((((closestSpace.space.at(1).minZ * pixel | 7) + 1) / pixel), objectBoundingBox.min.z) + ((closestSpace.space.at(1).maxZ * pixel & -8) / pixel)  - Math.max(objectBoundingBox.max.z, ((closestSpace.space.at(1).maxZ * pixel & -8) / pixel) ))
           objectPosition.add(new THREE.Vector3(moveX, moveY, moveZ))
           objectPosition.sub(new THREE.Vector3(objectPosition.x - (objectPosition.x * 64 & -8) / 64, objectPosition.y - (objectPosition.y * 64 & -8) / 64, objectPosition.z - (objectPosition.z * 64 & -8) / 64))
         }
-        
+        else {
+          this.snap = false
+        }
         this.setState((state) => {
           return { ...state, position: objectPosition }
         })
+        this.objectBoundingBox = new THREE.Box3(objectBoundingBox.min, objectBoundingBox.max)
       }
       else {
         this.grabbing = false
+        this.props.objectList.current[this.props.nanoid] = { boundingBox: this.objectBoundingBox, whitelist: this.props.whitelist, blacklist: this.props.blacklist }
       }
     }
   }
@@ -162,6 +169,11 @@ class Item extends React.Component {
           this.grabbing = true
         }}
         onPointerUp={(e) => {
+          if (this.snap == false) {
+            this.setState((state) => {
+              return { ...state, position: this.grabPosition }
+            })
+          }
           if (this.grabbing) {
             this.grabbing = false
             const boundingBox = new THREE.Box3().setFromObject(e.eventObject)

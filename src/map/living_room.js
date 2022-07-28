@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import Room from '../models/room'
 import React, { useRef, useState, Suspense } from "react"
 import TBox from '../models/box'
+import TWallBack from '../models/wall_back'
 import {Cursor} from '../utils/cursor'
 import { OrbitControls, PerspectiveCamera, OrthographicCamera } from "@react-three/drei"
 //import { useGesture } from "@use-gesture/react"
@@ -84,7 +85,9 @@ const LivingRoom = () => {
   //     state.gl.setRenderTarget(objects[index])
   //   }
   // })
-
+  const wallThickness = 0.5
+  const dimension = { a: 50, b: 50, h: 50 } //a: left, b: right, h: height
+  const wallColor = { top: "#947b73", bottom: "#735c55" }
   return (
     <Box sx={{
       width: '100vw',
@@ -119,6 +122,9 @@ const LivingRoom = () => {
             setGrab({ object: null, position: null })
           }}
           >
+          <TWallBack position={[-(wallThickness / 2), dimension.h / 2 - wallThickness / 2, dimension.b / 2]} rotation={[0, 0, 0]} scale={[wallThickness, dimension.h + wallThickness, dimension.b]} color={wallColor.top} />
+          <TWallBack position={[dimension.a / 2 - wallThickness / 2, dimension.h / 2 - wallThickness / 2, -wallThickness / 2]} rotation={[0, Math.PI / 2, 0]} scale={[wallThickness, dimension.h + wallThickness, dimension.a + wallThickness]} color={wallColor.top} />
+          <TWallBack position={[dimension.a / 2, -wallThickness / 2, dimension.b / 2]} rotation={[Math.PI / 2, Math.PI / 2, 0]} scale={[wallThickness, dimension.b, dimension.a]} color={wallColor.bottom} />
           <Room position={[0, 0, 0]} objectList={objectList} pointerPosition={pointerPosition} grab={grab} />
           <Item draggable={true} position={[1, 1, 8]} scale={[2, 2, 4]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <TBox color="brown" />
@@ -132,7 +138,7 @@ const LivingRoom = () => {
           <Item draggable={true} position={[1, 1, 12]} scale={[0.5, 1, 0.3]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <TBox color="blue" />
           </Item>
-          <Item draggable={false} position={[10, 4, 6]} scale={[1, 2, 2]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
+          {/* <Item draggable={false} position={[10, 4, 6]} scale={[1, 2, 2]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <MovingBox
               onClick={(event) => { f() }}
               map={useLoader(TextureLoader, 'box.png')} />
@@ -141,7 +147,7 @@ const LivingRoom = () => {
             <Dummy
               // onClick={(event) => { console.log('ffff') }}
               color="red" />
-          </Item>
+          </Item> */}
           <Item draggable={true} position={[0, 0, 0]} scale={[0.03, 0.03, 0.03]} tag={"box"} whitelist={{ left: [], right: [], top: [] }} blacklist={{ left: [], right: [], top: [] }} objectList={objectList} pointerPosition={pointerPosition} grab={grab} nanoid={useRef(nanoid()).current} >
             <Couch position={[100, 0, 200]} />
           </Item>
