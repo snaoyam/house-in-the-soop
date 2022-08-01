@@ -46,7 +46,7 @@ typewriter();
 
 document.querySelector('.btn').addEventListener('click', function (e) {
     // window.location.href = 'localhost:3000/1';
-    window.location.href = '/start/0';
+    window.location.href = '/0';
 }, false)
 
 
