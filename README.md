@@ -39,5 +39,5 @@ Studio
 :-------:|
 |<img width="450" alt="4" src="https://user-images.githubusercontent.com/93732046/182217705-20b18ed7-b2d8-4698-9a1b-1cec2e58875b.png">|
 
-
-
+## 6. Demo ##
+![Demo](https://github.com/snaoyam/house-in-the-soop/assets/93732046/053290dd-7faa-46ab-9f04-bef057fe45cc)
